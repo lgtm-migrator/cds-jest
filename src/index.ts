@@ -1,10 +1,11 @@
 import { CDSMockConfig, DefaultCDSMockConfig } from "./config";
-import { mockHana, mockSqlite } from "./mocks";
+import { mockHana, mockSqlite, mockUser } from "./mocks";
 import * as cds from "./types/cds";
 import { MockObjectWrapper } from "./types/mock";
 
 export interface MockedObjects {
   executes?: MockObjectWrapper<cds.sqlite.executes>;
+  user?: ReturnType<typeof mockUser>;
 }
 
 /**
@@ -21,6 +22,9 @@ export const mockCDS = (config?: CDSMockConfig) => {
   }
   if (config.hana === true) {
     mockedObjects.executes = mockHana();
+  }
+  if (config.user === true) {
+    mockedObjects.user = mockUser();
   }
   return mockedObjects;
 };

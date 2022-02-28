@@ -1,6 +1,7 @@
 export interface CDSMockConfig {
   sqlite?: boolean;
   hana?: boolean;
+  user?: boolean;
 };
 
 /**
@@ -14,5 +15,9 @@ export const DefaultCDSMockConfig: CDSMockConfig = {
   /**
    * mock hana.`executes`
    */
-  hana: false
+  hana: false,
+  /**
+   * mock user authentication
+   */
+  user: true,
 };
