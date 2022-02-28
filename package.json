@@ -2,6 +2,7 @@
   "name": "cds-mock",
   "version": "0.0.1",
   "main": "lib/index.js",
+  "typings": "lib/index.d.js",
   "scripts": {
     "test": "jest --detectOpenHandles --passWithNoTests",
     "prettier": "prettier --check --write src",

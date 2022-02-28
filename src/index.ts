@@ -1,10 +1,10 @@
 import { CDSMockConfig, DefaultCDSMockConfig } from "./config";
 import { mockHana, mockSqlite } from "./mocks";
+import * as cds from "./types/cds";
 import { MockObjectWrapper } from "./types/mock";
 
-
 export interface MockedObjects {
-  executes?: MockObjectWrapper<typeof import("./types/cds/sqlite/execute")>;
+  executes?: MockObjectWrapper<cds.sqlite.executes>;
 }
 
 /**

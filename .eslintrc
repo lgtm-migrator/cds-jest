@@ -89,7 +89,8 @@
           "cds",
           "sqlite",
           "hana",
-          "theo"
+          "theo",
+          "libx"
         ]
       }
     ]
