@@ -32,3 +32,6 @@ describe('CDS Test Suite', () => {
 });
 
 ```
+
+
+## [LICENSE](./LICENSE)
