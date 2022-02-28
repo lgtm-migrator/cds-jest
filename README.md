@@ -9,12 +9,12 @@
 
 ```js
 const { mockCDS } = require("cds-mock")
+const { executes } = mockCDS()
+const cds = require("@sap/cds")
+const axios = cds.test(".").in(__dirname, "../")
 
 describe('CDS Test Suite', () => {
-  const { executes } = mockCDS()
-  const cds = require("@sap/cds")
-  const axios = cds.test(".").in(__dirname, "../")
-
+  
   it('should support mock db', async () => {
     expect(jest.isMockFunction(executes.select)).toBeTruthy()
     executes.select.mockClear()
