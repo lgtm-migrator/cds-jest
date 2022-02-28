@@ -86,7 +86,10 @@
         // put false-positive words here
         "skipWords": [
           "javascript",
-          "cds"
+          "cds",
+          "sqlite",
+          "hana",
+          "theo"
         ]
       }
     ]
