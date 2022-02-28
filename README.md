@@ -5,16 +5,19 @@
 
 ## Get Started
 
-> only support `jest`
+> only support `jest` test framework
+
+`a sample test case`
 
 ```js
 const { mockCDS } = require("cds-mock")
+// MUST put this line before `require("@sap/cds")`, so that the mock could be applied
 const { executes } = mockCDS()
 const cds = require("@sap/cds")
 const axios = cds.test(".").in(__dirname, "../")
 
 describe('CDS Test Suite', () => {
-  
+
   it('should support mock db', async () => {
     expect(jest.isMockFunction(executes.select)).toBeTruthy()
     executes.select.mockClear()
