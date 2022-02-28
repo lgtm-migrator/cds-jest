@@ -36,5 +36,11 @@ describe('CDS Test Suite', () => {
 
 ```
 
+# Features
+
+- [x] mock db executions
+- [ ] mock user & privileges
+- [ ] mock `cds.connect.to`
+- [ ] mock express server and requests
 
 ## [LICENSE](./LICENSE)

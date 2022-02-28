@@ -3,6 +3,9 @@ export interface CDSMockConfig {
   hana?: boolean;
 };
 
+/**
+ * the default configuration of cds-mock
+ */
 export const DefaultCDSMockConfig: CDSMockConfig = {
   /**
    * mock sqlite.`executes` 

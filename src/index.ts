@@ -11,7 +11,7 @@ export interface MockedObjects {
  * You must setup mock before every thing
  *  
  * @param config 
- * @returns 
+ * @returns the mocked objects
  */
 export const mockCDS = (config?: CDSMockConfig) => {
   const mockedObjects: MockedObjects = {};
