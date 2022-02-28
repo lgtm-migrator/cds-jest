@@ -1,8 +1,16 @@
 {
   "name": "cds-mock",
   "version": "0.0.1",
+  "description": "mock utils for sap cap nodejs runtime",
   "main": "lib/index.js",
   "typings": "lib/index.d.js",
+  "author": {
+    "name": "Theo Sun"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Soontao/cds-mock"
+  },
   "scripts": {
     "test": "jest --detectOpenHandles --passWithNoTests",
     "prettier": "prettier --check --write src",
@@ -33,5 +41,12 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  }
+  },
+  "keywords": [
+    "jest",
+    "cap",
+    "sap",
+    "mock"
+  ],
+  "license": "Apache-2.0"
 }
