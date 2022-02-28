@@ -1,5 +1,5 @@
 import { CDSMockConfig, DefaultCDSMockConfig } from "./config";
-import { mockSqlite } from "./mocks";
+import { mockHana, mockSqlite } from "./mocks";
 import { MockObjectWrapper } from "./types/mock";
 
 
@@ -18,6 +18,9 @@ export const mockCDS = (config?: CDSMockConfig) => {
   config = Object.assign({}, DefaultCDSMockConfig, config ?? {});
   if (config.sqlite === true) {
     mockedObjects.executes = mockSqlite();
+  }
+  if (config.hana === true) {
+    mockedObjects.executes = mockHana();
   }
   return mockedObjects;
 };
