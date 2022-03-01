@@ -1,6 +1,27 @@
 import type { sqlite } from "./types/cds";
 import type { MockObjectWrapper } from "./types/mock";
 import { cwdRequire, spyAll } from "./utils";
+import { createMocks, RequestOptions, MockRequest, MockResponse } from "node-mocks-http";
+
+
+export const mockHttp = () => {
+
+  const cds = cwdRequire("@sap/cds")
+
+  return (options: RequestOptions) => {
+    const { req, res } = createMocks(options)
+    return new Promise<{ req: MockRequest<any>, res: MockResponse<any> }>((_resolve, _reject) => {
+      cds.app.handle(req, res, (err: Error) => {
+        if (err) {
+          _reject(err)
+        } else {
+          _resolve({ req, res })
+        }
+      })
+    })
+  }
+
+}
 
 export const mockUser = () => {
   const cds = cwdRequire("@sap/cds")

@@ -1,5 +1,5 @@
 import { CDSMockConfig, DefaultCDSMockConfig } from "./config";
-import { mockHana, mockSqlite, mockUser } from "./mocks";
+import { mockHana, mockHttp, mockSqlite, mockUser } from "./mocks";
 import * as cds from "./types/cds";
 import { MockObjectWrapper } from "./types/mock";
 
@@ -9,6 +9,7 @@ export interface MockedObjects {
    */
   executes?: MockObjectWrapper<cds.sqlite.executes>;
   user?: ReturnType<typeof mockUser>;
+  http?: ReturnType<typeof mockHttp>
 
 
   /**
@@ -45,7 +46,7 @@ export const mockCDS = (config?: CDSMockConfig) => {
   mockedObjects.clear = createClearFunction(mockedObjects)
 
   config = Object.assign({}, DefaultCDSMockConfig, config ?? {});
-  
+
   if (config.sqlite === true) {
     mockedObjects.executes = mockSqlite();
   }
@@ -54,6 +55,9 @@ export const mockCDS = (config?: CDSMockConfig) => {
   }
   if (config.user === true) {
     mockedObjects.user = mockUser();
+  }
+  if (config.http === true) {
+    mockedObjects.http = mockHttp()
   }
   return mockedObjects;
 };

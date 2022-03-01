@@ -2,6 +2,7 @@ export interface CDSMockConfig {
   sqlite?: boolean;
   hana?: boolean;
   user?: boolean;
+  http?: boolean;
 };
 
 /**
@@ -20,4 +21,8 @@ export const DefaultCDSMockConfig: CDSMockConfig = {
    * mock user authentication
    */
   user: true,
+  /**
+   * support mock/stub http request without real http call
+   */
+  http: true,
 };

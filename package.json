@@ -48,5 +48,8 @@
     "sap",
     "mock"
   ],
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "node-mocks-http": "^1.11.0"
+  }
 }
