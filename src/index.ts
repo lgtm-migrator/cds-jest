@@ -4,8 +4,32 @@ import * as cds from "./types/cds";
 import { MockObjectWrapper } from "./types/mock";
 
 export interface MockedObjects {
+  /**
+   * database low level execute mock
+   */
   executes?: MockObjectWrapper<cds.sqlite.executes>;
   user?: ReturnType<typeof mockUser>;
+
+
+  /**
+   * function used to clear all mock objects
+   */
+  clear: Function;
+}
+
+const createClearFunction = (mockedObject: MockedObjects) => {
+  return () => {
+    mockedObject.executes?.cqn?.mockClear()
+    mockedObject.executes?.insert?.mockClear()
+    mockedObject.executes?.delete?.mockClear()
+    mockedObject.executes?.update?.mockClear()
+    mockedObject.executes?.select?.mockClear()
+    mockedObject.executes?.sql?.mockClear()
+    mockedObject.executes?.stream?.mockClear()
+    mockedObject.user?.attr.mockClear()
+    mockedObject.user?.is.mockClear()
+    mockedObject.user?.locale.mockClear()
+  }
 }
 
 /**
@@ -15,8 +39,13 @@ export interface MockedObjects {
  * @returns the mocked objects
  */
 export const mockCDS = (config?: CDSMockConfig) => {
-  const mockedObjects: MockedObjects = {};
+  const mockedObjects: MockedObjects = {
+    clear: () => { }
+  };
+  mockedObjects.clear = createClearFunction(mockedObjects)
+
   config = Object.assign({}, DefaultCDSMockConfig, config ?? {});
+  
   if (config.sqlite === true) {
     mockedObjects.executes = mockSqlite();
   }

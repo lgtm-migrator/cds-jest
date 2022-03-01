@@ -3,12 +3,24 @@ import type { MockObjectWrapper } from "./types/mock";
 import { cwdRequire, spyAll } from "./utils";
 
 export const mockUser = () => {
-  const User = cwdRequire("@sap/cds/lib/req/user");
-  
+  const cds = cwdRequire("@sap/cds")
+  let UserType = cwdRequire("@sap/cds/lib/req/user");
+
+  switch (cds.requires?.auth?.kind) {
+    case 'mocked-auth':
+      UserType = UserType.Anonymous
+      break;
+    case 'dummy':
+      UserType = UserType.Privileged
+    default:
+      // do nothing, use plain `User`
+      break;
+  }
+
   return {
-    attr: jest.spyOn(User.prototype, "attr", "get"),
-    is: jest.spyOn(User.prototype, "is"),
-    locale: jest.spyOn(User.prototype, "locale", "get"),
+    attr: jest.spyOn(UserType.prototype, "attr", "get"),
+    is: jest.spyOn(UserType.prototype, "is"),
+    locale: jest.spyOn(UserType.prototype, "locale", "get"),
   };
 };
 
