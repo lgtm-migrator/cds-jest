@@ -1,16 +1,26 @@
-import { CDSMockConfig, DefaultCDSMockConfig } from "./config";
 import { mockHana, mockHttp, mockSqlite, mockUser } from "./mocks";
 import * as cds from "./types/cds";
 import { MockObjectWrapper } from "./types/mock";
 
 export interface MockedObjects {
-  /**
-   * database low level execute mock
-   */
-  executes?: MockObjectWrapper<cds.sqlite.executes>;
-  user?: ReturnType<typeof mockUser>;
-  http?: ReturnType<typeof mockHttp>
 
+  /**
+   * sqlite low level execute mock
+   */
+  sqlite: MockObjectWrapper<cds.sqlite.executes>;
+  /**
+   * hana low level execute mock
+   */
+  hana: MockObjectWrapper<cds.sqlite.executes>;
+  /**
+   * user which interacted in cds runtime
+   */
+  user: ReturnType<typeof mockUser>;
+
+  /**
+   * create mocked request and await the mocked response, and assert the mocked response
+   */
+  http: ReturnType<typeof mockHttp>;
 
   /**
    * function used to clear all mock objects
@@ -18,20 +28,46 @@ export interface MockedObjects {
   clear: Function;
 }
 
+export type Feature = Exclude<keyof MockedObjects, 'clear'>;
+
 const createClearFunction = (mockedObject: MockedObjects) => {
   return () => {
-    mockedObject.executes?.cqn?.mockClear()
-    mockedObject.executes?.insert?.mockClear()
-    mockedObject.executes?.delete?.mockClear()
-    mockedObject.executes?.update?.mockClear()
-    mockedObject.executes?.select?.mockClear()
-    mockedObject.executes?.sql?.mockClear()
-    mockedObject.executes?.stream?.mockClear()
-    mockedObject.user?.attr.mockClear()
-    mockedObject.user?.is.mockClear()
-    mockedObject.user?.locale.mockClear()
+
+    if (mockedObject.sqlite !== undefined) {
+      mockedObject.sqlite?.cqn?.mockClear()
+      mockedObject.sqlite?.insert?.mockClear()
+      mockedObject.sqlite?.delete?.mockClear()
+      mockedObject.sqlite?.update?.mockClear()
+      mockedObject.sqlite?.select?.mockClear()
+      mockedObject.sqlite?.sql?.mockClear()
+      mockedObject.sqlite?.stream?.mockClear()
+    }
+
+    if (mockedObject.hana !== undefined) {
+      mockedObject.hana?.cqn?.mockClear()
+      mockedObject.hana?.insert?.mockClear()
+      mockedObject.hana?.delete?.mockClear()
+      mockedObject.hana?.update?.mockClear()
+      mockedObject.hana?.select?.mockClear()
+      mockedObject.hana?.sql?.mockClear()
+      mockedObject.hana?.stream?.mockClear()
+    }
+
+    if (mockedObject.user !== undefined) {
+      mockedObject.user?.attr.mockClear()
+      mockedObject.user?.is.mockClear()
+      mockedObject.user?.locale.mockClear()
+    }
+
+    if (mockedObject.http !== undefined) {
+      // do nothing
+    }
+
   }
 }
+
+export type Keys<T> = Array<T[keyof T] extends true ? keyof T : undefined>
+
 
 /**
  * You must setup mock before every thing
@@ -39,26 +75,23 @@ const createClearFunction = (mockedObject: MockedObjects) => {
  * @param config 
  * @returns the mocked objects
  */
-export const mockCDS = (config?: CDSMockConfig) => {
-  const mockedObjects: MockedObjects = {
+export const mockCDS = <T extends Array<Feature>>(...features: T): Pick<MockedObjects, T[number] | 'clear'> => {
+  const mockedObjects: any = {
     clear: () => { }
   };
   mockedObjects.clear = createClearFunction(mockedObjects)
 
-  config = Object.assign({}, DefaultCDSMockConfig, config ?? {});
-
-  if (config.sqlite === true) {
-    mockedObjects.executes = mockSqlite();
+  if (features.includes("sqlite")) {
+    mockedObjects.sqlite = mockSqlite();
   }
-  if (config.hana === true) {
-    mockedObjects.executes = mockHana();
+  if (features.includes("hana")) {
+    mockedObjects.hana = mockHana();
   }
-  if (config.user === true) {
+  if (features.includes("user")) {
     mockedObjects.user = mockUser();
   }
-  if (config.http === true) {
+  if (features.includes("http")) {
     mockedObjects.http = mockHttp()
   }
   return mockedObjects;
 };
-

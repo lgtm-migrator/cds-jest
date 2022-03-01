@@ -26,3 +26,5 @@ export const DefaultCDSMockConfig: CDSMockConfig = {
    */
   http: true,
 };
+
+export type Feature = 'sqlite' | 'hana' | 'user' | 'http'
