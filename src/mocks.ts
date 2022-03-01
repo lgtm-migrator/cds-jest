@@ -6,6 +6,7 @@ export const mockUser = () => {
   const cds = cwdRequire("@sap/cds")
   let UserType = cwdRequire("@sap/cds/lib/req/user");
 
+  // TODO: check user use custom authtication handler or not
   switch (cds.requires?.auth?.kind) {
     case 'mocked-auth':
       UserType = UserType.Anonymous
