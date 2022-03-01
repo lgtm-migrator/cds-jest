@@ -3,12 +3,12 @@
  * @type {import("@jest/types").Config.ProjectConfig}
  */
 module.exports = {
-  testTimeout: 30 * 3000, // 30s
+  testTimeout: 10 * 3000, 
   transform: {
     ".(ts|tsx)": "ts-jest"
   },
   collectCoverageFrom: [
-    "src/**/*.ts",
+    "src/*.ts",
     "!**/node_modules/**"
   ],
   coveragePathIgnorePatterns: [

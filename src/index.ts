@@ -1,32 +1,6 @@
-import { mockHana, mockHttp, mockSqlite, mockUser } from "./mocks";
-import * as cds from "./types/cds";
-import { MockObjectWrapper } from "./types/mock";
+import { mockHana, mockSqlite, mockUser } from "./mocks";
+import type { MockedObjects } from "./types";
 
-export interface MockedObjects {
-
-  /**
-   * sqlite low level execute mock
-   */
-  sqlite: MockObjectWrapper<cds.sqlite.executes>;
-  /**
-   * hana low level execute mock
-   */
-  hana: MockObjectWrapper<cds.sqlite.executes>;
-  /**
-   * user which interacted in cds runtime
-   */
-  user: ReturnType<typeof mockUser>;
-
-  /**
-   * create mocked request and await the mocked response, and assert the mocked response
-   */
-  http: ReturnType<typeof mockHttp>;
-
-  /**
-   * function used to clear all mock objects
-   */
-  clear: Function;
-}
 
 export type Feature = Exclude<keyof MockedObjects, 'clear'>;
 
@@ -59,10 +33,6 @@ const createClearFunction = (mockedObject: MockedObjects) => {
       mockedObject.user?.locale.mockClear()
     }
 
-    if (mockedObject.http !== undefined) {
-      // do nothing
-    }
-
   }
 }
 
@@ -90,8 +60,7 @@ export const mockCDS = <T extends Array<Feature>>(...features: T): Pick<MockedOb
   if (features.includes("user")) {
     mockedObjects.user = mockUser();
   }
-  if (features.includes("http")) {
-    mockedObjects.http = mockHttp()
-  }
   return mockedObjects;
 };
+
+export { mockUtils } from "./mocks"

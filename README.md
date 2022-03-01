@@ -40,9 +40,9 @@ describe('CDS Test Suite', () => {
 
 - [x] mock db executions
 - [ ] mock db connection
-- [ ] mock http
 - [ ] mock user & privileges
 - [ ] mock `cds.connect.to`
 - [ ] mock express server and requests
+- [ ] spy logger
 
 ## [LICENSE](./LICENSE)
