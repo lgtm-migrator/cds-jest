@@ -7,15 +7,15 @@
 
 > only support `jest` test framework
 
-`a sample test case`
+### sqlite test
+
 
 ```js
-import { mockCDS, mockUtils } from "cds-mock";
-
-const mocks = mockCDS("sqlite")
-
 describe('Sqlite Mock Test Suite', () => {
-  
+
+  const { mockCDS, mockUtils } = require("cds-mock")
+
+  const mocks = mockCDS("sqlite")
   const cds = require("@sap/cds")
   const axios = cds.test(".").in(__dirname, "./sample-app")
 
@@ -57,7 +57,41 @@ describe('Sqlite Mock Test Suite', () => {
 });
 ```
 
-# Features
+### http test
+
+> just an example, not used `cds-mock`
+
+```js
+describe('HTTP Test Suite', () => {
+
+  const cdsTest = require("@sap/cds").test(".").in(__dirname, "./sample-app")
+  /**
+   * @type {import("axios").AxiosInstance}
+   */
+  const axios = cdsTest.axios;
+
+  it('should support mock http GET', async () => {
+    const response = await axios.request({ method: "GET", url: "/person/Person" })
+    expect(response.status).toBe(200)
+  });
+
+  it('should support mock http POST', async () => {
+    const response = await axios.request({
+      method: "POST", url: "/person/Person", data: {
+        Name: "Theo 111",
+        Age: 999
+      }
+    })
+
+    expect(response.status).toBe(201)
+  });
+
+
+});
+```
+
+
+## Features
 
 - [x] mock db executions
 - [ ] mock db connection

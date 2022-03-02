@@ -1,9 +1,10 @@
-import { mockCDS, mockUtils } from "../src";
 
-const mocks = mockCDS("sqlite")
 
 describe('Sqlite Mock Test Suite', () => {
-  
+
+  const { mockCDS, mockUtils } = require("../src")
+
+  const mocks = mockCDS("sqlite")
   const cds = require("@sap/cds")
   const axios = cds.test(".").in(__dirname, "./sample-app")
 

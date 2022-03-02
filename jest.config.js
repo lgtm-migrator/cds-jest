@@ -15,7 +15,7 @@ module.exports = {
     "node_modules/",
   ],
   testEnvironment: "node",
-  testRegex: "/test/.*\\.test\\.ts$",
+  testRegex: "/test/.*\\.test\\.(ts|js)$",
   moduleFileExtensions: [
     "ts",
     "js",

@@ -1,13 +1,12 @@
 
-import { mockCDS, mockUtils } from "../src";
-import { AxiosInstance } from "axios";
-
-
 
 describe('HTTP Test Suite', () => {
 
   const cdsTest = require("@sap/cds").test(".").in(__dirname, "./sample-app")
-  const axios: AxiosInstance = cdsTest.axios;
+  /**
+   * @type {import("axios").AxiosInstance}
+   */
+  const axios = cdsTest.axios;
 
   it('should support mock http GET', async () => {
     const response = await axios.request({ method: "GET", url: "/person/Person" })
