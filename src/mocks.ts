@@ -48,17 +48,17 @@ export const mockUtils = {
       /**
        * disable `begin`,`commit`,`rollback`
        * 
+       * only support `sqlite` now
+       * 
        * @param mocks 
        */
       tx: (mocks: Partial<MockedObjects>) => {
-        let sql = mocks.sqlite?.sql
-        if (mocks.hana) {
-          sql = mocks.hana.sql
-        }
+        const sql = mocks.sqlite?.sql
         if (sql !== undefined) {
 
           when(sql)
             .calledWith(
+              // for transaction related event, only have 3 parameters
               expect.anything(),
               expect.stringMatching(/^\s*(begin|commit|rollback)/i),
               expect.anything(),
