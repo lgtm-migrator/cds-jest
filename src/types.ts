@@ -1,24 +1,28 @@
 import type * as cds from "./types/cds";
-import { MockObjectWrapper } from "./types/mock";
 import type * as mocks from "./mocks";
 
 
+/**
+ * the mocked object
+ */
 export interface MockedObjects {
 
   /**
    * sqlite low level execute mock
    */
-  sqlite: MockObjectWrapper<cds.sqlite.executes>;
+  sqlite: jest.MockedObject<cds.sqlite.executes>;
   /**
    * hana low level execute mock
    */
-  hana: MockObjectWrapper<cds.sqlite.executes>;
+  hana: jest.MockedObject<cds.sqlite.executes>;
   /**
    * user which interacted in cds runtime
    */
   user: ReturnType<typeof mocks.mockUser>;
   /**
    * function used to clear all mock objects
+   * 
+   * invoke the `mockFunction.mockClear` for all mocks
    */
   clear: Function;
 }

@@ -3,6 +3,7 @@ import { MockObjectWrapper } from "./types/mock";
 import { cwdRequire, spyAll } from "./utils";
 import { MockedObjects } from "./types";
 
+
 export const mockUser = () => {
   const cds = cwdRequire("@sap/cds")
   let UserType = cwdRequire("@sap/cds/lib/req/user");

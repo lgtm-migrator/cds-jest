@@ -4,6 +4,8 @@ describe('Sqlite Mock Test Suite', () => {
 
   const { mockCDS, mockUtils } = require("../src")
 
+  const { when } = require("jest-when")
+
   const mocks = mockCDS("sqlite")
   const cds = require("@sap/cds")
   const axios = cds.test(".").in(__dirname, "./sample-app")

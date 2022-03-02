@@ -1,12 +1,22 @@
 
 /**
+ * resolve module by current work-space
+ * 
+ * @param id 
+ * @returns 
+ */
+export const cwdResolve = (id: string) => {
+  return require.resolve(id, { paths: [process.cwd()] })
+}
+
+/**
  * require module from current work-space instead of module 
  * 
  * @param id 
  * @returns 
  */
 export const cwdRequire = (id: string) => {
-  return require(require.resolve(id, { paths: [process.cwd()] }));
+  return require(cwdResolve(id));
 };
 
 /**

@@ -1,5 +1,6 @@
 import { mockHana, mockSqlite, mockUser } from "./mocks";
 import type { MockedObjects } from "./types";
+import "./machers"
 
 
 export type Feature = Exclude<keyof MockedObjects, 'clear'>;
@@ -50,7 +51,6 @@ export const mockCDS = <T extends Array<Feature>>(...features: T): Pick<MockedOb
     clear: () => { }
   };
   mockedObjects.clear = createClearFunction(mockedObjects)
-
   if (features.includes("sqlite")) {
     mockedObjects.sqlite = mockSqlite();
   }
@@ -62,5 +62,7 @@ export const mockCDS = <T extends Array<Feature>>(...features: T): Pick<MockedOb
   }
   return mockedObjects;
 };
+
+
 
 export { mockUtils } from "./mocks"

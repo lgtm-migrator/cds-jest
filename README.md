@@ -99,5 +99,7 @@ describe('HTTP Test Suite', () => {
 - [ ] mock `cds.connect.to`
 - [ ] mock express server and requests
 - [ ] spy logger
+- [ ] custom CQN matcher
+  - [x] basic table matcher
 
 ## [LICENSE](./LICENSE)

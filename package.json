@@ -25,6 +25,7 @@
     "@types/axios": "^0.14.0",
     "@types/jest": "^27.4.0",
     "@types/node": "^16.11.25",
+    "@types/sqlite3": "^3.1.8",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "commitlint": "^14.1.0",
@@ -50,6 +51,8 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
+    "@types/jest-when": "^3.5.0",
+    "jest-when": "^3.5.1",
     "node-mocks-http": "^1.11.0"
   }
 }
