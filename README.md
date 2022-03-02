@@ -92,6 +92,7 @@ describe('HTTP Test Suite', () => {
 ## Features
 
 - [x] mock db executions
+  - [ ] db execution shortcut
 - [ ] mock db connection
 - [ ] mock user & privileges
 - [ ] mock `cds.connect.to`

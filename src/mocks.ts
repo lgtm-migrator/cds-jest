@@ -2,6 +2,7 @@ import type { sqlite } from "./types/cds";
 import { MockObjectWrapper } from "./types/mock";
 import { cwdRequire, spyAll } from "./utils";
 import { MockedObjects } from "./types";
+import { when } from "jest-when";
 
 
 export const mockUser = () => {
@@ -55,15 +56,14 @@ export const mockUtils = {
           sql = mocks.hana.sql
         }
         if (sql !== undefined) {
-          const original = sql.getMockImplementation()
-          if (original !== undefined) {
-            sql?.mockImplementation((dbc, sql, values, isOne, mapper) => {
-              if (/^\s*(begin|commit|rollback)/i.test(sql)) {
-                return Promise.resolve()
-              }
-              return original(dbc, sql, values, isOne, mapper)
-            })
-          }
+
+          when(sql)
+            .calledWith(
+              expect.anything(),
+              expect.stringMatching(/^\s*(begin|commit|rollback)/i),
+              expect.anything(),
+            )
+            .mockReturnValue(Promise.resolve())
         }
 
       }

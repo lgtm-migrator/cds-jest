@@ -14,7 +14,7 @@ export type executeSelectStreamCQN = (model: any, dbc: any, query: any, user: an
 
 export type executeGenericCQN = (model: any, dbc: any, cqn: any, user: any, locale: any, txTimestamp: any) => Promise<any>;
 
-export type executePlainSQL = (dbc: any, sql: any, values: any, isOne: any, postMapper: any) => Promise<any>;
+export type executePlainSQL = (dbc: any, sql: any, values?: any, isOne?: any, postMapper?: any) => Promise<any>;
 
 export type executes = {
   /**
