@@ -104,5 +104,6 @@ describe('HTTP Test Suite', () => {
   - [x] basic table matcher
   - [ ] axios response matcher (response code, body)
 - [ ] cds test wrapper (with axios type definition)
+- [ ] shortcut to deploy to HDI Container
 
 ## [LICENSE](./LICENSE)
