@@ -1,7 +1,7 @@
 {
-  "name": "cds-mock",
+  "name": "cds-jest",
   "version": "0.0.1",
-  "description": "mock utils for sap cap nodejs runtime",
+  "description": "jest utils for sap cap nodejs runtime",
   "main": "lib/index.js",
   "typings": "lib/index.d.js",
   "author": {

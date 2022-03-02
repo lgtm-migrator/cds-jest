@@ -1,11 +1,9 @@
-# cds mock
+# cds jest
 
-> mock library for cds test, heavily depends on the `jest.spyOn`
+> jest utils for `cds`
 
 
 ## Get Started
-
-> only support `jest` test framework
 
 ### sqlite test
 
@@ -101,5 +99,7 @@ describe('HTTP Test Suite', () => {
 - [ ] spy logger
 - [ ] custom CQN matcher
   - [x] basic table matcher
+  - [ ] axios response matcher (response code, body)
+- [ ] cds test wrapper (with axios type definition)
 
 ## [LICENSE](./LICENSE)
