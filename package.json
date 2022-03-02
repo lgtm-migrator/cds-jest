@@ -13,7 +13,6 @@
   },
   "scripts": {
     "test": "jest --detectOpenHandles --passWithNoTests",
-    "prettier": "prettier --check --write src",
     "prebuild": "rimraf lib",
     "build": "tsc",
     "postbuild": "tsc --noEmit --p tsconfig.lib.json",
