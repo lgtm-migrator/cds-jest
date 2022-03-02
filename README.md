@@ -2,6 +2,8 @@
 
 > jest utils for `cds`
 
+[![node-test](https://github.com/Soontao/cds-jest/actions/workflows/nodejs.yml/badge.svg)](https://github.com/Soontao/cds-jest/actions/workflows/nodejs.yml)
+
 
 ## Get Started
 
