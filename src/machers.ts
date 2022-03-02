@@ -59,7 +59,7 @@ interface CustomMatchers<R = unknown> {
    * @param receivedCQN 
    * @param expecetedCQN 
    */
-  toMatchCQN(receivedCQN: any, expecetedCQN: any): R;
+  toMatchCQN(expecetedCQN: any): R;
 }
 
 declare global {
