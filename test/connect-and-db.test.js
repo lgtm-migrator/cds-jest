@@ -2,7 +2,7 @@
 
 
 describe('connect.to and db Test Suite', () => {
-  
+
   const { utils, spy, when } = require("../src")
   const cds = require("@sap/cds")
   const path = require("path")
@@ -11,11 +11,12 @@ describe('connect.to and db Test Suite', () => {
   /**
    * @type {jest.MockedObject<import("../src/types").DummyDatabase>}
    */
-  let db
+  let dummyDatabaseService
 
   beforeAll(async () => {
     utils.connect.fullMock(spies, ...models)
-    db = cds.db = await utils.db.dummy(models)
+    // must assign to cds.db as a global referenec to execute CQN
+    dummyDatabaseService = cds.db = await utils.db.dummy(models)
   })
 
   beforeEach(() => {
@@ -28,17 +29,23 @@ describe('connect.to and db Test Suite', () => {
     expect(PersonService).not.toBeUndefined()
     const query = INSERT.into("Person").entries([{ Name: "Theo Sun" }])
     await PersonService.run(query)
-    expect(db.run).toBeCalledWith(expect.toMatchCQN(INSERT.into("PersonService.Person")), expect.anything())
+    expect(dummyDatabaseService.run).toBeCalledWith(expect.toMatchCQN(INSERT.into("PersonService.Person")), expect.anything())
 
   });
 
 
   it('should support read with information', async () => {
-    db.run.mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
-    db.run.mockResolvedValueOnce([{ Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }])
+    dummyDatabaseService.run.mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
+    dummyDatabaseService.run.mockResolvedValueOnce([{ Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }])
     const PersonService = await cds.connect.to("PersonService")
     const result = await PersonService.run(SELECT.one.from("Person").where({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f" }))
-    expect(result).toMatchObject({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
+    expect(result).toMatchObject({
+      ID: "6fb19609-dfed-4be7-a935-66ea4338c13f",
+      Name: "TheoSun",
+      Informations: [
+        { Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }
+      ]
+    })
   });
 
 

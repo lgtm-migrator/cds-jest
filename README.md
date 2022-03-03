@@ -13,13 +13,12 @@ TBD, some samples here
 
 - [x] mock db executions
   - [ ] db execution shortcut
-- [ ] mock db service for connect to
+- [x] mock db service for connect to
 - [ ] mock user & privileges
-- [ ] mock `cds.connect.to`
-  - [ ] test with odata lifecycle
-  - [ ] simple connect.to
-  - [ ] casecade connect.to
-- [ ] mock express server and requests
+- [x] mock `cds.connect.to`
+  - [x] test with odata lifecycle
+  - [x] simple connect.to
+  - [x] casecade connect.to
 - [ ] spy logger
 - [ ] custom CQN matcher
   - [x] basic table matcher
