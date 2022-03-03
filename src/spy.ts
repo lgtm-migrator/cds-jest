@@ -69,7 +69,7 @@ export const utils = {
   },
   db: {
     /**
-     * create a dummy database service which support you spy and change behaviour
+     * create a dummy `DatabaseService` which support you spy and change behaviour
      * 
      * @param models 
      * @returns 
@@ -80,12 +80,11 @@ export const utils = {
       const instance = new Service("db", await cds.load(models))
       instance.init && await instance.init()
       spyAll(instance)
-      jest.spyOn(instance, "acquire")
-      jest.spyOn(instance, "run")
-      jest.spyOn(instance, "deploy")
-      jest.spyOn(instance, "begin")
-      jest.spyOn(instance, "commit")
-      jest.spyOn(instance, "rollback")
+      const methods = ["acquire", "run", "deploy", "begin", "commit", "rollback"]
+      for (const method of methods) {
+        jest.spyOn(instance, method)
+        instance?.[method]?.mockResolvedValue(undefined)
+      }
       return instance
     },
     disable: {

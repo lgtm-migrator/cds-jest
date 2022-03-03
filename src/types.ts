@@ -22,7 +22,7 @@ export interface MockedObjects {
 
   connect: {
     /**
-     * mocked connect to
+     * spy connect to
      */
     to: jest.SpyInstance<any>;
   };
@@ -40,7 +40,6 @@ export interface MockedObjects {
 
 
 export interface DummyDatabase {
-  _run: (...args: Array<any>) => any;
   run: (...args: Array<any>) => any;
   acquire: (arg: any) => any;
   deploy(model?: any | string): Promise<any>;

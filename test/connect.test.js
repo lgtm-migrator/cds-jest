@@ -17,7 +17,6 @@ describe('Connect.to Test Suite', () => {
       .calledWith("ps2")
       .mockResolvedValue({ dummy: () => "dummy value ps2" })
 
-
     const srv = await cds.connect.to("ps")
     expect(srv).not.toBeUndefined()
     expect(srv.dummy()).toBe("dummy value ps")
