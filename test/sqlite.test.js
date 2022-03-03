@@ -13,6 +13,10 @@ describe('Sqlite Mock Test Suite', () => {
     mockUtils.disable.db.tx(mocks)
   })
 
+  it('should connect to Personal Service', async () => {
+    await cds.connect.to("PersonService")
+  });
+
   it('should support get metadata', async () => {
     const res = await axios.get("/person/$metadata")
     expect(res.data).toMatch(/Person/)

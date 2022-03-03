@@ -66,3 +66,4 @@ export const mockCDS = <T extends Array<Feature>>(...features: T): Pick<MockedOb
 
 
 export { mockUtils } from "./mocks"
+export { when } from "jest-when"

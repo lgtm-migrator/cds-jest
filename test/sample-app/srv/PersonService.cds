@@ -4,6 +4,7 @@ using {
 } from '@sap/cds/common';
 
 @path : '/person'
+@impl : './PersonService.js'
 service PersonService {
 
   entity Person : cuid {

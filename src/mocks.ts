@@ -43,6 +43,16 @@ export const mockHana = () => {
 
 
 export const mockUtils = {
+  connect: {
+    async to(service: string, ...models: Array<string>) {
+      const cds = cwdRequire("@sap/cds")
+      const ServiceFactory = cwdRequire("@sap/cds/lib/serve/factory")
+      const srv = new ServiceFactory(service, await cds.load(models))
+      srv.init && await srv.prepend(srv.init)
+      srv.options.impl && await srv.prepend(srv.options.impl)
+      return srv
+    }
+  },
   disable: {
     db: {
       /**
