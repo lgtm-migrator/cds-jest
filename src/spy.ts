@@ -82,6 +82,8 @@ export const utils = {
     /**
      * create a dummy `DatabaseService` which support you spy and change behaviour
      * 
+     * please remember to assign it to `cds.db` to make it works for handlers
+     * 
      * @param models 
      * @returns 
      */

@@ -20,7 +20,7 @@ describe('connect.to and db Test Suite', () => {
   })
 
   beforeEach(() => {
-    cds.db.run.mockClear()
+    db.run.mockClear()
   })
 
   it('should support connect and consume data', async () => {
