@@ -43,6 +43,10 @@ export interface DummyDatabase {
   _run: (...args: Array<any>) => any;
   run: (...args: Array<any>) => any;
   acquire: (arg: any) => any;
+  deploy(model?: any | string): Promise<any>;
+  begin(): Promise<void>;
+  commit(): Promise<void>;
+  rollback(): Promise<void>;
 }
 
 

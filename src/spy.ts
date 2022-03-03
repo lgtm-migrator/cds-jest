@@ -76,6 +76,10 @@ export const utils = {
       spyAll(instance)
       jest.spyOn(instance, "acquire")
       jest.spyOn(instance, "run")
+      jest.spyOn(instance, "deploy")
+      jest.spyOn(instance, "begin")
+      jest.spyOn(instance, "commit")
+      jest.spyOn(instance, "rollback")
       return instance
     },
     disable: {
