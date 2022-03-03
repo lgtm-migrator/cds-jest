@@ -39,6 +39,13 @@ export interface MockedObjects {
 }
 
 
+export interface DummyDatabase {
+  _run: (...args: Array<any>) => any;
+  run: (...args: Array<any>) => any;
+  acquire: (arg: any) => any;
+}
+
+
 export type Feature = Exclude<keyof MockedObjects, 'clear'>;
 
 

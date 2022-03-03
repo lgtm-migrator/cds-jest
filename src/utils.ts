@@ -27,12 +27,14 @@ export const cwdRequire = (id: string) => {
  * @returns 
  */
 export const spyAll = <T extends object>(obj: T, accessType?: "get" | "set") => {
-  Object.keys(obj).forEach(key => {
-    // @ts-ignore
-    if (Object.prototype.hasOwnProperty.call(obj, key) && typeof obj[key] === "function") {
+  if (typeof obj === 'object') {
+    Object.keys(obj).forEach(key => {
       // @ts-ignore
-      jest.spyOn(obj, key, accessType);
-    }
-  });
+      if (Object.prototype.hasOwnProperty.call(obj, key) && typeof obj[key] === "function") {
+        // @ts-ignore
+        jest.spyOn(obj, key, accessType);
+      }
+    });
+  }
   return obj;
 };

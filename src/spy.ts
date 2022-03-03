@@ -1,7 +1,7 @@
 import type { sqlite } from "./types/cds";
 import { MockObjectWrapper } from "./types/mock";
 import { cwdRequire, spyAll } from "./utils";
-import { MockedObjects } from "./types";
+import { DummyDatabase, MockedObjects } from "./types";
 import { when } from "jest-when";
 
 export const mockConnectTo = () => {
@@ -68,6 +68,16 @@ export const utils = {
     }
   },
   db: {
+    async createDummyDatabaseService(...models: Array<string>): Promise<jest.MockedObject<DummyDatabase>> {
+      const cds = cwdRequire("@sap/cds")
+      const Service = cwdRequire("@sap/cds/libx/_runtime/sqlite/Service");
+      const instance = new Service("db", await cds.load(models))
+      instance.init && await instance.init()
+      spyAll(instance)
+      jest.spyOn(instance, "acquire")
+      jest.spyOn(instance, "run")
+      return instance
+    },
     disable: {
       /**
        * disable `begin`,`commit`,`rollback`
