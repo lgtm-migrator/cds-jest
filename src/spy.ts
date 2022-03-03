@@ -68,7 +68,13 @@ export const utils = {
     }
   },
   db: {
-    async createDummyDatabaseService(...models: Array<string>): Promise<jest.MockedObject<DummyDatabase>> {
+    /**
+     * create a dummy database service which support you spy and change behaviour
+     * 
+     * @param models 
+     * @returns 
+     */
+    async dummy(...models: Array<string>): Promise<jest.MockedObject<DummyDatabase>> {
       const cds = cwdRequire("@sap/cds")
       const Service = cwdRequire("@sap/cds/libx/_runtime/sqlite/Service");
       const instance = new Service("db", await cds.load(models))

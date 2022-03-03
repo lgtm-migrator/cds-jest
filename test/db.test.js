@@ -10,7 +10,7 @@ describe('DB Test Suite', () => {
 
   it('should support create mocked db instance', async () => {
 
-    const db = await utils.db.createDummyDatabaseService(models)
+    const db = await utils.db.dummy(models)
     expect(db).not.toBeUndefined()
     db._run.mockResolvedValue(undefined)
     expect(jest.isMockFunction(db._run)).toBeTruthy()
