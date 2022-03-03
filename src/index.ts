@@ -1,43 +1,8 @@
-import { mockHana, mockSqlite, mockUser } from "./mocks";
-import type { MockedObjects } from "./types";
+import { mockConnectTo, mockHanaExecution, mockSqliteExecution, mockUser } from "./spy";
+import type { Feature, MockedObjects } from "./types";
 import "./machers"
+import { createMockFunction } from "./clear";
 
-
-export type Feature = Exclude<keyof MockedObjects, 'clear'>;
-
-const createClearFunction = (mockedObject: MockedObjects) => {
-  return () => {
-
-    if (mockedObject.sqlite !== undefined) {
-      mockedObject.sqlite?.cqn?.mockClear()
-      mockedObject.sqlite?.insert?.mockClear()
-      mockedObject.sqlite?.delete?.mockClear()
-      mockedObject.sqlite?.update?.mockClear()
-      mockedObject.sqlite?.select?.mockClear()
-      mockedObject.sqlite?.sql?.mockClear()
-      mockedObject.sqlite?.stream?.mockClear()
-    }
-
-    if (mockedObject.hana !== undefined) {
-      mockedObject.hana?.cqn?.mockClear()
-      mockedObject.hana?.insert?.mockClear()
-      mockedObject.hana?.delete?.mockClear()
-      mockedObject.hana?.update?.mockClear()
-      mockedObject.hana?.select?.mockClear()
-      mockedObject.hana?.sql?.mockClear()
-      mockedObject.hana?.stream?.mockClear()
-    }
-
-    if (mockedObject.user !== undefined) {
-      mockedObject.user?.attr.mockClear()
-      mockedObject.user?.is.mockClear()
-      mockedObject.user?.locale.mockClear()
-    }
-
-  }
-}
-
-export type Keys<T> = Array<T[keyof T] extends true ? keyof T : undefined>
 
 
 /**
@@ -46,16 +11,22 @@ export type Keys<T> = Array<T[keyof T] extends true ? keyof T : undefined>
  * @param config 
  * @returns the mocked objects
  */
-export const mockCDS = <T extends Array<Feature>>(...features: T): Pick<MockedObjects, T[number] | 'clear'> => {
+export const spy = <T extends Array<Feature>>(...features: T): Pick<MockedObjects, T[number] | 'clear' | "restore"> => {
   const mockedObjects: any = {
     clear: () => { }
   };
-  mockedObjects.clear = createClearFunction(mockedObjects)
-  if (features.includes("sqlite")) {
-    mockedObjects.sqlite = mockSqlite();
+
+  mockedObjects.clear = createMockFunction(mockedObjects, "mockClear")
+  mockedObjects.restore = createMockFunction(mockedObjects, "mockRestore")
+
+  if (features.includes("sqliteExecution")) {
+    mockedObjects.sqliteExecution = mockSqliteExecution();
   }
-  if (features.includes("hana")) {
-    mockedObjects.hana = mockHana();
+  if (features.includes("hanaExection")) {
+    mockedObjects.hanaExection = mockHanaExecution();
+  }
+  if (features.includes("connectTo")) {
+    mockedObjects.connectTo = mockConnectTo()
   }
   if (features.includes("user")) {
     mockedObjects.user = mockUser();
@@ -65,5 +36,5 @@ export const mockCDS = <T extends Array<Feature>>(...features: T): Pick<MockedOb
 
 
 
-export { mockUtils } from "./mocks"
+export { utils } from "./spy"
 export { when } from "jest-when"

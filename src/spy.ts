@@ -4,6 +4,10 @@ import { cwdRequire, spyAll } from "./utils";
 import { MockedObjects } from "./types";
 import { when } from "jest-when";
 
+export const mockConnectTo = () => {
+  const cds = cwdRequire("@sap/cds")
+  return jest.spyOn(cds.connect, "to")
+}
 
 export const mockUser = () => {
   const cds = cwdRequire("@sap/cds")
@@ -28,23 +32,33 @@ export const mockUser = () => {
   };
 };
 
-export const mockSqlite = () => {
+export const mockSqliteExecution = () => {
   const executes = cwdRequire("@sap/cds/libx/_runtime/sqlite/execute");
   spyAll(executes);
   return executes as MockObjectWrapper<sqlite.executes>;
 };
 
 
-export const mockHana = () => {
+export const mockHanaExecution = () => {
   const executes = cwdRequire("@sap/cds/libx/_runtime/hana/execute");
   spyAll(executes);
   return executes as MockObjectWrapper<sqlite.executes>;
 };
 
 
-export const mockUtils = {
+/**
+ * cds mock/spy utils
+ */
+export const utils = {
   connect: {
-    async to(service: string, ...models: Array<string>) {
+    /**
+     * connect to service without whole framework startup
+     * 
+     * @param service 
+     * @param models 
+     * @returns 
+     */
+    async to<T = any>(service: string, ...models: Array<string>): Promise<T> {
       const cds = cwdRequire("@sap/cds")
       const ServiceFactory = cwdRequire("@sap/cds/lib/serve/factory")
       const srv = new ServiceFactory(service, await cds.load(models))
@@ -53,8 +67,8 @@ export const mockUtils = {
       return srv
     }
   },
-  disable: {
-    db: {
+  db: {
+    disable: {
       /**
        * disable `begin`,`commit`,`rollback`
        * 
@@ -63,7 +77,7 @@ export const mockUtils = {
        * @param mocks 
        */
       tx: (mocks: Partial<MockedObjects>) => {
-        const sql = mocks.sqlite?.sql
+        const sql = mocks.sqliteExecution?.sql
         if (sql !== undefined) {
 
           when(sql)

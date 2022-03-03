@@ -9,14 +9,16 @@
 
 TBD, some samples here
 
-
 ## Features
 
 - [x] mock db executions
   - [ ] db execution shortcut
-- [ ] mock db connection
+- [ ] mock db service for connect to
 - [ ] mock user & privileges
-- [ ] mock `cds.connect.to`
+- [x] mock `cds.connect.to`
+  - [ ] test with odata lifecycle
+  - [ ] simple connect.to
+  - [ ] casecade connect.to
 - [ ] mock express server and requests
 - [ ] spy logger
 - [ ] custom CQN matcher
