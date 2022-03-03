@@ -3,7 +3,7 @@
 > jest utils for `cds`
 
 [![node-test](https://github.com/Soontao/cds-jest/actions/workflows/nodejs.yml/badge.svg)](https://github.com/Soontao/cds-jest/actions/workflows/nodejs.yml)
-
+[![codecov](https://codecov.io/gh/Soontao/cds-jest/branch/main/graph/badge.svg?token=WFDumlSg3G)](https://codecov.io/gh/Soontao/cds-jest)
 
 ## Get Started
 
@@ -15,7 +15,7 @@ TBD, some samples here
   - [ ] db execution shortcut
 - [ ] mock db service for connect to
 - [ ] mock user & privileges
-- [x] mock `cds.connect.to`
+- [ ] mock `cds.connect.to`
   - [ ] test with odata lifecycle
   - [ ] simple connect.to
   - [ ] casecade connect.to
