@@ -19,8 +19,8 @@ describe('connect.to and db Test Suite', () => {
     dummyDatabaseService = cds.db = await utils.db.dummy(models)
   })
 
-  beforeEach(() => {
-    db.run.mockClear()
+  afterEach(() => {
+    dummyDatabaseService.run.mockClear()
   })
 
   it('should support connect and consume data', async () => {
