@@ -51,6 +51,15 @@ export const mockHanaExecution = () => {
  */
 export const utils = {
   connect: {
+    fullMock(spies: MockedObjects, ...models: Array<string>) {
+
+      if (spies?.connect?.to === undefined) {
+        throw new Error("must spy('connect') firstly")
+      }
+
+      spies?.connect?.to.mockImplementation((service) => utils.connect.to(service, ...models))
+
+    },
     /**
      * connect to service with ServiceFactory
      * 
@@ -61,9 +70,11 @@ export const utils = {
     async to<T = any>(service: string, ...models: Array<string>): Promise<T> {
       const cds = cwdRequire("@sap/cds")
       const ServiceFactory = cwdRequire("@sap/cds/lib/serve/factory")
-      const srv = new ServiceFactory(service, await cds.load(models))
+      const csn = await cds.load(models)
+      const srv = new ServiceFactory(service, csn)
       srv.init && await srv.prepend(srv.init)
       srv.options.impl && await srv.prepend(srv.options.impl)
+      srv.models = csn
       return srv
     }
   },
