@@ -91,6 +91,7 @@ export const utils = {
       const instance = new Service("db", await cds.load(models))
       instance.init && await instance.init()
       spyAll(instance)
+      // TODO: for 'run' method, throw error for notify user should to mock
       const methods = ["acquire", "run", "deploy", "begin", "commit", "rollback"]
       for (const method of methods) {
         jest.spyOn(instance, method)
