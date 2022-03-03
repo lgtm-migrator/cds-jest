@@ -25,8 +25,9 @@ export const spy = <T extends Array<Feature>>(...features: T): Pick<MockedObject
   if (features.includes("hanaExection")) {
     mockedObjects.hanaExection = mockHanaExecution();
   }
-  if (features.includes("connectTo")) {
-    mockedObjects.connectTo = mockConnectTo()
+  if (features.includes("connect")) {
+    mockedObjects.connect = {}
+    mockedObjects.connect.to = mockConnectTo()
   }
   if (features.includes("user")) {
     mockedObjects.user = mockUser();

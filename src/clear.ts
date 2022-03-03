@@ -29,8 +29,8 @@ export const createMockFunction = (mockedObject: MockedObjects, functionName: "m
       mockedObject.user?.locale[functionName]()
     }
 
-    if (mockedObject.connectTo !== undefined) {
-      mockedObject.connectTo[functionName]()
+    if (mockedObject.connect !== undefined) {
+      mockedObject.connect?.to?.[functionName]()
     }
 
   }

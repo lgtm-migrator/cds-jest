@@ -52,7 +52,7 @@ export const mockHanaExecution = () => {
 export const utils = {
   connect: {
     /**
-     * connect to service without whole framework startup
+     * connect to service with ServiceFactory
      * 
      * @param service 
      * @param models 

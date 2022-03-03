@@ -19,10 +19,13 @@ export interface MockedObjects {
    * user which interacted in cds runtime
    */
   user: ReturnType<typeof mocks.mockUser>;
-  /**
-   * mocked connect to
-   */
-  connectTo: jest.SpyInstance<any>;
+
+  connect: {
+    /**
+     * mocked connect to
+     */
+    to: jest.SpyInstance<any>;
+  };
   /**
    * function used to clear all mock objects
    * 
