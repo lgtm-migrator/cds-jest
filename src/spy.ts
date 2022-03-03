@@ -82,7 +82,7 @@ export const utils = {
     /**
      * create a dummy `DatabaseService` which support you spy and change behaviour
      * 
-     * please remember to assign it to `cds.db` to make it works for handlers
+     * it will be automatically assigned to the `cds.db` to make it works for handlers
      * 
      * @param models 
      * @returns 
@@ -99,6 +99,7 @@ export const utils = {
         jest.spyOn(instance, method)
         instance?.[method]?.mockResolvedValue(undefined)
       }
+      cds.db = instance
       return instance
     },
     disable: {

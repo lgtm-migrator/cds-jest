@@ -16,7 +16,7 @@ describe('connect.to and db Test Suite', () => {
   beforeAll(async () => {
     utils.connect.fullMock(spies, ...models)
     // must assign to cds.db as a global referenec to execute CQN
-    dummyDatabaseService = cds.db = await utils.db.dummy(models)
+    dummyDatabaseService = await utils.db.dummy(models)
   })
 
   afterEach(() => {
