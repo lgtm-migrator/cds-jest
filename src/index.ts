@@ -1,6 +1,6 @@
+import "./machers";
 import { spyConnectTo, spyHanaExecution, spySqliteExecution, spyUser } from "./spy";
 import type { Feature, SpiedObjects } from "./types";
-import "./machers"
 import { createMockFunction } from "./clear";
 
 
@@ -12,27 +12,27 @@ import { createMockFunction } from "./clear";
  * @returns the mocked objects
  */
 export const spy = <T extends Array<Feature>>(...features: T): Pick<SpiedObjects, T[number] | 'clear' | "restore"> => {
-  const mockedObjects: any = {
+  const spiedObjects: any = {
     clear: () => { }
   };
 
-  mockedObjects.clear = createMockFunction(mockedObjects, "mockClear")
-  mockedObjects.restore = createMockFunction(mockedObjects, "mockRestore")
+  spiedObjects.clear = createMockFunction(spiedObjects, "mockClear")
+  spiedObjects.restore = createMockFunction(spiedObjects, "mockRestore")
 
   if (features.includes("sqliteExecution")) {
-    mockedObjects.sqliteExecution = spySqliteExecution();
+    spiedObjects.sqliteExecution = spySqliteExecution();
   }
   if (features.includes("hanaExection")) {
-    mockedObjects.hanaExection = spyHanaExecution();
+    spiedObjects.hanaExection = spyHanaExecution();
   }
   if (features.includes("connect")) {
-    mockedObjects.connect = {}
-    mockedObjects.connect.to = spyConnectTo()
+    spiedObjects.connect = {}
+    spiedObjects.connect.to = spyConnectTo()
   }
   if (features.includes("user")) {
-    mockedObjects.user = spyUser();
+    spiedObjects.user = spyUser();
   }
-  return mockedObjects;
+  return spiedObjects;
 };
 
 

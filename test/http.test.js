@@ -9,15 +9,20 @@ describe('HTTP Test Suite', () => {
   const axios = cdsTest.axios;
 
   it('should support mock http GET', async () => {
-    const response = await axios.request({ method: "GET", url: "/person/Person" })
+    const response = await axios.request({
+      method: "GET",
+      url: "/person/Person",
+    })
     expect(response.status).toBe(200)
   });
 
   it('should support mock http POST', async () => {
     const response = await axios.request({
-      method: "POST", url: "/person/Person", data: {
+      method: "POST",
+      url: "/person/Person",
+      data: {
         Name: "Theo 111",
-        Age: 999
+        Age: 999,
       }
     })
 
