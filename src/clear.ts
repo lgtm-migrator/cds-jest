@@ -1,4 +1,3 @@
-import { DB_DEFAULT_REJECT_METHODS, DB_DEFAULT_RESOLVE_METHODS } from "./constants"
 import type { SpiedObjects } from "./types"
 
 export const createMockFunction = (spiedObject: SpiedObjects, functionName: "mockClear" | "mockRestore") => {

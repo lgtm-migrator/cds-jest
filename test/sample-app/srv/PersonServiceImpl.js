@@ -3,13 +3,19 @@
 module.exports = class PersonalService extends cds.ApplicationService {
 
 
-
-
   async init() {
 
     this.informationService = await cds.connect.to("InformationService")
     // TODO: update this handler for support single/multi values
-    this.after("READ", "Person", this.afterReadPerson)
+    this.after("READ", "Person", async (rows) => {
+      if (rows) {
+        if (rows instanceof Array) {
+          await Promise.all(rows.map(this.afterReadPerson))
+        } else {
+          await this.afterReadPerson(rows)
+        }
+      }
+    })
     await super.init()
 
   }

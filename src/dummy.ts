@@ -42,12 +42,23 @@ export const dummy = {
     const cds = cwdRequire("@sap/cds")
     const ServiceFactory = cwdRequire("@sap/cds/lib/serve/factory")
     const csn = await cds.load(models)
+    const _pending = cds.services._pending ?? {}
+    let _done = (x: any) => x;
+    if (service in cds.services) return cds.services[service]
+    if (service in _pending) return _pending[service]
+    _pending[service] = new Promise(r => _done = r).finally(() => {
+      delete _pending[service]
+    })
     const srv = new ServiceFactory(service, csn)
     srv.init && await srv.prepend(srv.init)
     srv.options.impl && await srv.prepend(srv.options.impl)
     srv.models = csn
     spyAll(srv)
+    if (service === 'db') {
+      cds.db = srv
+    }
+    _done(cds.services[service] = srv)
     return srv
   }
-  
+
 }

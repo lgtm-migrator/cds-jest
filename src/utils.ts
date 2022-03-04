@@ -1,6 +1,7 @@
 import { when } from "jest-when";
 import { dummy } from "./dummy";
 import { DummyDatabase, SpiedObjects } from "./types";
+import { cds } from "./types/mock";
 
 /**
  * resolve module by current work-space
@@ -30,16 +31,17 @@ export const cwdRequire = (id: string) => {
  * @returns 
  */
 export const spyAll = <T extends object>(obj: T, accessType?: "get" | "set") => {
+  const spiedObject = {}
   if (typeof obj === 'object') {
     Object.keys(obj).forEach(key => {
       // @ts-ignore
       if (Object.prototype.hasOwnProperty.call(obj, key) && typeof obj[key] === "function") {
         // @ts-ignore
-        jest.spyOn(obj, key, accessType);
+        spiedObject[key] = jest.spyOn(obj, key, accessType);
       }
     });
   }
-  return obj;
+  return spiedObject;
 };
 
 
@@ -48,25 +50,21 @@ export const spyAll = <T extends object>(obj: T, accessType?: "get" | "set") => 
  */
 export const utils = {
   connect: {
-    fullMock(spies: SpiedObjects, ...models: Array<string>) {
+    /**
+     * deep mock `cds.connect.to`
+     * 
+     * @param spies 
+     * @param models 
+     */
+    deep(spies: Partial<SpiedObjects>, ...models: Array<string>) {
 
       if (spies?.connect?.to === undefined) {
         throw new Error("must spy('connect') firstly")
       }
 
-      spies?.connect?.to?.mockImplementation((service) => utils.connect.to(service, ...models))
+      spies?.connect?.to?.mockImplementation((service) => dummy.Service(service, ...models))
 
     },
-    /**
-     * connect to service with ServiceFactory
-     * 
-     * @param service 
-     * @param models 
-     * @returns 
-     */
-    async to<T = any>(service: string, ...models: Array<string>): Promise<T> {
-      return await dummy.Service<T>(service, ...models)
-    }
   },
   db: {
     /**

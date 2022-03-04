@@ -1,30 +1,19 @@
 
 
 
-describe('connect.to and db Test Suite', () => {
+describe('predefined.service Test Suite', () => {
 
-  const { utils, spy, when, errors } = require("../src")
-  const cds = require("@sap/cds")
   const path = require("path")
   const models = [path.join(__dirname, "./sample-app/srv")]
-  const spies = spy("connect")
-  /**
-   * @type {jest.MockedObject<import("../src/types").DummyDatabase>}
-   */
-  let dummyDatabaseService
+  const { when, errors, predefined } = require("../src")
+  const spies = predefined.service(...models)
+  const cds = require("@sap/cds")
 
-  beforeAll(async () => {
-    utils.connect.deep(spies, ...models)
-    // must assign to cds.db as a global referenec to execute CQN
-    dummyDatabaseService = await utils.db.dummy(models)
-  })
+  beforeAll(() => cds.connect.to("db"))
 
-  afterEach(() => {
-    dummyDatabaseService.run.mockClear()
-  })
+  afterEach(() => spies.clear())
 
   it('should support throw error when not mock value for "db.run"', async () => {
-
     const PersonService = await cds.connect.to("PersonService")
     expect(PersonService).not.toBeUndefined()
     const query = INSERT.into("Person").entries([{ Name: "Theo Sun" }])
@@ -33,24 +22,26 @@ describe('connect.to and db Test Suite', () => {
 
   it('should support connect and consume data', async () => {
 
+    const db = await cds.connect.to("db")
     const PersonService = await cds.connect.to("PersonService")
     const query = INSERT.into("Person").entries([{ Name: "Theo Sun" }])
 
-    when(dummyDatabaseService.run)
+    when(db.run)
       .calledWith(expect.toMatchCQN(INSERT.into("PersonService.Person")), expect.anything())
       .mockResolvedValue(undefined)
 
     await PersonService.run(query) // execute request
 
-    expect(dummyDatabaseService.run).toBeCalledWith(expect.toMatchCQN(INSERT.into("PersonService.Person")), expect.anything())
+    expect(db.run).toBeCalledWith(expect.toMatchCQN(INSERT.into("PersonService.Person")), expect.anything())
 
   });
 
 
   it('should support read with information', async () => {
+    const db = await cds.connect.to("db")
 
-    dummyDatabaseService.run.mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
-    dummyDatabaseService.run.mockResolvedValueOnce([{ Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }])
+    db.run.mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
+    db.run.mockResolvedValueOnce([{ Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }])
 
     const PersonService = await cds.connect.to("PersonService")
     const result = await PersonService.run(SELECT.one.from("Person").where({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f" }))
@@ -66,9 +57,10 @@ describe('connect.to and db Test Suite', () => {
   });
 
   it('should support read with information', async () => {
+    const db = await cds.connect.to("db")
 
-    dummyDatabaseService.run.mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
-    dummyDatabaseService.run.mockResolvedValueOnce([{ Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }])
+    db.run.mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
+    db.run.mockResolvedValueOnce([{ Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }])
 
     const PersonService = await cds.connect.to("PersonService")
     const result = await PersonService.run(SELECT.one.from("Person").where({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f" }))

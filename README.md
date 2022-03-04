@@ -13,19 +13,19 @@ TBD, some samples here
 
 - [x] mock db executions
   - [ ] db execution shortcut
-- [x] mock db service for connect to
+- [x] mock db service for `cds.connect.to`
 - [ ] mock user & privileges
 - [x] mock `cds.connect.to`
   - [x] test with odata lifecycle
-  - [x] simple connect.to
-  - [x] casecade connect.to
+  - [x] simple `connect.to`
+  - [x] cascade `connect.to`
+  - [ ] circular `connect.to`
   - [ ] test with action/function
-  - [ ] cds.services alias
+  - [x] cds.services alias
 - [ ] spy logger
 - [ ] custom CQN matcher
   - [x] basic table matcher
   - [ ] axios response matcher (response code, body)
 - [ ] cds test wrapper (with axios type definition)
-- [ ] shortcut to deploy to HDI Container
 
 ## [LICENSE](./LICENSE)
