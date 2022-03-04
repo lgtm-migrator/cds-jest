@@ -11,6 +11,11 @@ function toMatchCQN(receivedCQN: any, expecetedCQN: any) {
     return result
   }
 
+  // any one of value is undefined
+  if (receivedCQN === undefined || expecetedCQN === undefined) {
+    return result
+  }
+
   if (receivedCQN.SELECT !== undefined && expecetedCQN.SELECT !== undefined) {
     if (receivedCQN.SELECT?.from?.ref[0] === expecetedCQN.SELECT.from?.ref?.[0]) {
       result.pass = true
@@ -43,11 +48,6 @@ function toMatchCQN(receivedCQN: any, expecetedCQN: any) {
 
 };
 
-export const matchers = {
-
-}
-
-
 expect.extend({ toMatchCQN })
 
 interface CustomMatchers<R = unknown> {
@@ -56,7 +56,7 @@ interface CustomMatchers<R = unknown> {
    * 
    * supported fields 
    * 
-   * * table
+   * * table/entity name
    * 
    * @param receivedCQN 
    * @param expecetedCQN 
@@ -71,3 +71,5 @@ declare global {
     interface InverseAsymmetricMatchers extends CustomMatchers { }
   }
 }
+
+export { }

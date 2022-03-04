@@ -8,6 +8,10 @@ describe('Connect.to Test Suite', () => {
   const spies = spy("connect")
   const cds = require("@sap/cds")
 
+  beforeEach(() => {
+    spies.clear()
+  })
+
   it('should support spy the "cds.connect.to"', async () => {
 
     when(spies.connect.to)
@@ -31,17 +35,6 @@ describe('Connect.to Test Suite', () => {
     const aPersonService = await cds.connect.to("PersonService")
     expect(aPersonService).not.toBeUndefined()
     expect(aPersonService.dummy()).toBe("dummy value")
-  });
-
-
-  it.skip('should support run CQN in service', async () => {
-
-    // overwrite default implementation
-    spies.connect.to.mockImplementation((service) => utils.connect.to(service, ...models))
-
-    const aPersonService = await cds.connect.to("PersonService")
-    await aPersonService.run(INSERT.into("Person").entries([{ Name: "Theo Sun" }])) // TODO: cds.db is required for this execution
-
   });
 
 

@@ -19,6 +19,8 @@ TBD, some samples here
   - [x] test with odata lifecycle
   - [x] simple connect.to
   - [x] casecade connect.to
+  - [ ] test with action/function
+  - [ ] cds.services alias
 - [ ] spy logger
 - [ ] custom CQN matcher
   - [x] basic table matcher

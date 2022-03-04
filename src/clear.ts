@@ -1,36 +1,37 @@
-import type { MockedObjects } from "./types"
+import { DB_DEFAULT_REJECT_METHODS, DB_DEFAULT_RESOLVE_METHODS } from "./constants"
+import type { SpiedObjects } from "./types"
 
-export const createMockFunction = (mockedObject: MockedObjects, functionName: "mockClear" | "mockRestore") => {
+export const createMockFunction = (spiedObject: SpiedObjects, functionName: "mockClear" | "mockRestore") => {
   return () => {
 
-    if (mockedObject.sqliteExecution !== undefined) {
-      mockedObject.sqliteExecution?.cqn?.[functionName]()
-      mockedObject.sqliteExecution?.insert?.[functionName]()
-      mockedObject.sqliteExecution?.delete?.[functionName]()
-      mockedObject.sqliteExecution?.update?.[functionName]()
-      mockedObject.sqliteExecution?.select?.[functionName]()
-      mockedObject.sqliteExecution?.sql?.[functionName]()
-      mockedObject.sqliteExecution?.stream?.[functionName]()
+    if (spiedObject.sqliteExecution !== undefined) {
+      spiedObject.sqliteExecution?.cqn?.[functionName]()
+      spiedObject.sqliteExecution?.insert?.[functionName]()
+      spiedObject.sqliteExecution?.delete?.[functionName]()
+      spiedObject.sqliteExecution?.update?.[functionName]()
+      spiedObject.sqliteExecution?.select?.[functionName]()
+      spiedObject.sqliteExecution?.sql?.[functionName]()
+      spiedObject.sqliteExecution?.stream?.[functionName]()
     }
 
-    if (mockedObject.hanaExection !== undefined) {
-      mockedObject.hanaExection?.cqn?.[functionName]()
-      mockedObject.hanaExection?.insert?.[functionName]()
-      mockedObject.hanaExection?.delete?.[functionName]()
-      mockedObject.hanaExection?.update?.[functionName]()
-      mockedObject.hanaExection?.select?.[functionName]()
-      mockedObject.hanaExection?.sql?.[functionName]()
-      mockedObject.hanaExection?.stream?.[functionName]()
+    if (spiedObject.hanaExection !== undefined) {
+      spiedObject.hanaExection?.cqn?.[functionName]()
+      spiedObject.hanaExection?.insert?.[functionName]()
+      spiedObject.hanaExection?.delete?.[functionName]()
+      spiedObject.hanaExection?.update?.[functionName]()
+      spiedObject.hanaExection?.select?.[functionName]()
+      spiedObject.hanaExection?.sql?.[functionName]()
+      spiedObject.hanaExection?.stream?.[functionName]()
     }
 
-    if (mockedObject.user !== undefined) {
-      mockedObject.user?.attr[functionName]()
-      mockedObject.user?.is[functionName]()
-      mockedObject.user?.locale[functionName]()
+    if (spiedObject.user !== undefined) {
+      spiedObject.user?.attr[functionName]()
+      spiedObject.user?.is[functionName]()
+      spiedObject.user?.locale[functionName]()
     }
 
-    if (mockedObject.connect !== undefined) {
-      mockedObject.connect?.to?.[functionName]()
+    if (spiedObject.connect !== undefined) {
+      spiedObject.connect?.to?.[functionName]()
     }
 
   }

@@ -1,6 +1,6 @@
 
 
-describe('Sqlite Mock Test Suite', () => {
+describe('Sqlite Execution Mock Test Suite', () => {
 
   const { spy, utils } = require("../src")
 

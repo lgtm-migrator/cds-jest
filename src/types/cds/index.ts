@@ -1,2 +1,2 @@
 
-export * as sqlite from "./sqlite";
+export * as db from "./db";
