@@ -14,17 +14,17 @@ export const predefined = {
    * @returns 
    */
   service(...models: Array<string>) {
-    const spies = spy("connect", "user")
-    utils.connect.deep(spies, ...models)
+    const spies = spy("connect", "user");
+    utils.connect.deep(spies, ...models);
     const createDb = async () => {
-      const cds = cwdRequire("@sap/cds")
-      const db = await dummy.Database(...models)
+      const cds = cwdRequire("@sap/cds");
+      const db = await dummy.Database(...models);
       cds.db = db;
-      return db
-    }
-    when(spies.connect.to).calledWith("db", expect.anything()).mockImplementation(createDb)
-    when(spies.connect.to).calledWith("db").mockImplementation(createDb)
-    return spies
+      return db;
+    };
+    when(spies.connect.to).calledWith("db", expect.anything()).mockImplementation(createDb);
+    when(spies.connect.to).calledWith("db").mockImplementation(createDb);
+    return spies;
   },
 
   /**
@@ -33,7 +33,7 @@ export const predefined = {
    * @returns 
    */
   server() {
-    const spies = spy("sqliteExecution", "user")
-    return spies
+    const spies = spy("sqliteExecution", "user");
+    return spies;
   }
-}
+};

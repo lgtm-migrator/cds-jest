@@ -1,7 +1,6 @@
 import { when } from "jest-when";
 import { dummy } from "./dummy";
 import { DummyDatabase, SpiedObjects } from "./types";
-import { cds } from "./types/mock";
 
 /**
  * resolve module by current work-space
@@ -10,8 +9,8 @@ import { cds } from "./types/mock";
  * @returns 
  */
 export const cwdResolve = (id: string) => {
-  return require.resolve(id, { paths: [process.cwd()] })
-}
+  return require.resolve(id, { paths: [process.cwd()] });
+};
 
 /**
  * require module from current work-space instead of module 
@@ -31,8 +30,8 @@ export const cwdRequire = (id: string) => {
  * @returns 
  */
 export const spyAll = <T extends object>(obj: T, accessType?: "get" | "set") => {
-  const spiedObject = {}
-  if (typeof obj === 'object') {
+  const spiedObject = {};
+  if (typeof obj === "object") {
     Object.keys(obj).forEach(key => {
       // @ts-ignore
       if (Object.prototype.hasOwnProperty.call(obj, key) && typeof obj[key] === "function") {
@@ -59,10 +58,10 @@ export const utils = {
     deep(spies: Partial<SpiedObjects>, ...models: Array<string>) {
 
       if (spies?.connect?.to === undefined) {
-        throw new Error("must spy('connect') firstly")
+        throw new Error("must spy('connect') firstly");
       }
 
-      spies?.connect?.to?.mockImplementation((service) => dummy.Service(service, ...models))
+      spies?.connect?.to?.mockImplementation((service) => dummy.Service(service, ...models));
 
     },
   },
@@ -76,10 +75,10 @@ export const utils = {
      * @returns 
      */
     async dummy(...models: Array<string>): Promise<jest.MockedObject<DummyDatabase>> {
-      const cds = cwdRequire("@sap/cds")
-      const instance = await dummy.Database(...models)
-      cds.db = instance
-      return instance
+      const cds = cwdRequire("@sap/cds");
+      const instance = await dummy.Database(...models);
+      cds.db = instance;
+      return instance;
     },
     disable: {
       /**
@@ -90,7 +89,7 @@ export const utils = {
        * @param mocks 
        */
       tx: (mocks: Partial<SpiedObjects>) => {
-        const sql = mocks.sqliteExecution?.sql
+        const sql = mocks.sqliteExecution?.sql;
         if (sql !== undefined) {
 
           when(sql)
@@ -100,10 +99,10 @@ export const utils = {
               expect.stringMatching(/^\s*(begin|commit|rollback)/i),
               expect.anything(),
             )
-            .mockReturnValue(Promise.resolve())
+            .mockReturnValue(Promise.resolve());
         }
 
       }
     }
   },
-}
+};

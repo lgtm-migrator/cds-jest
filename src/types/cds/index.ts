@@ -1,3 +1,3 @@
 
 export * as db from "./db";
-export * from "./test"
+export * from "./test";

@@ -48,6 +48,8 @@ jobs:
           npm run build --if-present
         env:
           CI: true
+          
+      - run: npm run lint
 
       - name: test & coverage
         run: npm run coverage

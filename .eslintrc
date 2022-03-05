@@ -2,8 +2,7 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint",
-    "spellcheck"
+    "@typescript-eslint"
   ],
   "env": {
     "node": true,
@@ -77,21 +76,6 @@
       2,
       {
         "SwitchCase": 1
-      }
-    ],
-    "spellcheck/spell-checker": [
-      "warn",
-      {
-        "ignoreRequire": true,
-        // put false-positive words here
-        "skipWords": [
-          "javascript",
-          "cds",
-          "sqlite",
-          "hana",
-          "theo",
-          "libx"
-        ]
       }
     ]
   }

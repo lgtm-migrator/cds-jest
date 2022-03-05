@@ -10,13 +10,13 @@ import { cwdRequire, spyAll } from "./utils";
  * @param config 
  * @returns the mocked objects
  */
-export const spy = <T extends Array<Feature>>(...features: T): Pick<SpiedObjects, T[number] | 'clear' | "restore"> => {
+export const spy = <T extends Array<Feature>>(...features: T): Pick<SpiedObjects, T[number] | "clear" | "restore"> => {
   const spiedObjects: any = {
     clear: () => { }
   };
 
-  spiedObjects.clear = createMockFunction(spiedObjects, "mockClear")
-  spiedObjects.restore = createMockFunction(spiedObjects, "mockRestore")
+  spiedObjects.clear = createMockFunction(spiedObjects, "mockClear");
+  spiedObjects.restore = createMockFunction(spiedObjects, "mockRestore");
 
   if (features.includes("sqliteExecution")) {
     spiedObjects.sqliteExecution = spySqliteExecution();
@@ -25,8 +25,8 @@ export const spy = <T extends Array<Feature>>(...features: T): Pick<SpiedObjects
     spiedObjects.hanaExection = spyHanaExecution();
   }
   if (features.includes("connect")) {
-    spiedObjects.connect = {}
-    spiedObjects.connect.to = spyConnectTo()
+    spiedObjects.connect = {};
+    spiedObjects.connect.to = spyConnectTo();
   }
   if (features.includes("user")) {
     spiedObjects.user = spyUser();
@@ -36,21 +36,21 @@ export const spy = <T extends Array<Feature>>(...features: T): Pick<SpiedObjects
 
 
 export const spyConnectTo = () => {
-  const cds = cwdRequire("@sap/cds")
-  return jest.spyOn(cds.connect, "to")
-}
+  const cds = cwdRequire("@sap/cds");
+  return jest.spyOn(cds.connect, "to");
+};
 
 export const spyUser = () => {
-  const cds = cwdRequire("@sap/cds")
+  const cds = cwdRequire("@sap/cds");
   let UserType = cwdRequire("@sap/cds/lib/req/user");
 
   // TODO: check user use custom authtication handler or not
   switch (cds.requires?.auth?.kind) {
-    case 'mocked-auth':
-      UserType = UserType.Anonymous
+    case "mocked-auth":
+      UserType = UserType.Anonymous;
       break;
-    case 'dummy':
-      UserType = UserType.Privileged
+    case "dummy":
+      UserType = UserType.Privileged;
     default:
       // do nothing, use plain `User`
       break;

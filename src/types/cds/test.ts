@@ -1,5 +1,5 @@
 
-import type { AxiosInstance } from "axios"
+import type { AxiosInstance } from "axios";
 
 export interface Test {
   /**
@@ -53,14 +53,14 @@ export interface Test {
 
   // alias for axios
 
-  GET: AxiosInstance['get']
-  PATCH: AxiosInstance['patch']
-  POST: AxiosInstance['post']
-  PUT: AxiosInstance['put']
-  DELETE: AxiosInstance['delete']
-  get: AxiosInstance['get']
-  patch: AxiosInstance['patch']
-  post: AxiosInstance['post']
-  put: AxiosInstance['put']
-  delete: AxiosInstance['delete']
+  GET: AxiosInstance["get"]
+  PATCH: AxiosInstance["patch"]
+  POST: AxiosInstance["post"]
+  PUT: AxiosInstance["put"]
+  DELETE: AxiosInstance["delete"]
+  get: AxiosInstance["get"]
+  patch: AxiosInstance["patch"]
+  post: AxiosInstance["post"]
+  put: AxiosInstance["put"]
+  delete: AxiosInstance["delete"]
 }

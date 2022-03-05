@@ -1,46 +1,47 @@
+/* eslint-disable max-len */
 
 function toMatchCQN(receivedCQN: any, expecetedCQN: any) {
 
   const result = {
-    message: () => `expected: ${JSON.stringify(expecetedCQN)}${result.pass ? ' ' : ' not '}to be received: ${JSON.stringify(receivedCQN)}`,
+    message: () => `expected: ${JSON.stringify(expecetedCQN)}${result.pass ? " " : " not "}to be received: ${JSON.stringify(receivedCQN)}`,
     pass: false
-  }
+  };
 
   if (receivedCQN === expecetedCQN) {
-    result.pass = true
-    return result
+    result.pass = true;
+    return result;
   }
 
   // any one of value is undefined
   if (receivedCQN === undefined || expecetedCQN === undefined) {
-    return result
+    return result;
   }
 
   if (receivedCQN.SELECT !== undefined && expecetedCQN.SELECT !== undefined) {
     if (receivedCQN.SELECT?.from?.ref[0] === expecetedCQN.SELECT.from?.ref?.[0]) {
-      result.pass = true
-      return result
+      result.pass = true;
+      return result;
     }
   }
 
   if (receivedCQN.INSERT !== undefined && expecetedCQN.INSERT !== undefined) {
     if (receivedCQN.INSERT.into === expecetedCQN.INSERT.into) {
-      result.pass = true
-      return result
+      result.pass = true;
+      return result;
     }
   }
 
   if (receivedCQN.UPDATE !== undefined && expecetedCQN.UPDATE !== undefined) {
     if (receivedCQN.UPDATE.entity === expecetedCQN.UPDATE.entity) {
-      result.pass = true
-      return result
+      result.pass = true;
+      return result;
     }
   }
 
   if (receivedCQN.DELETE !== undefined && expecetedCQN.DELETE !== undefined) {
     if (receivedCQN.DELETE.from === expecetedCQN.DELETE.from) {
-      result.pass = true
-      return result
+      result.pass = true;
+      return result;
     }
   }
 
@@ -48,7 +49,7 @@ function toMatchCQN(receivedCQN: any, expecetedCQN: any) {
 
 };
 
-expect.extend({ toMatchCQN })
+expect.extend({ toMatchCQN });
 
 interface CustomMatchers<R = unknown> {
   /**
@@ -72,4 +73,4 @@ declare global {
   }
 }
 
-export { }
+export { };

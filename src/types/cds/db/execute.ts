@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import type { Readable } from "stream";
 
 export type executeDeleteCQN = (model: any, dbc: any, cqn: any, user: any, locale: any, txTimestamp: any) => Promise<any>;
