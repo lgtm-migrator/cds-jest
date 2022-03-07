@@ -54,12 +54,12 @@ describe('predefined.service Test Suite', () => {
 ### Samples
 
 1. [test with service layer](./test/predefined.http.test.js)
-  1. without `express` server setup
-  1. without database
-  1. pure service handlers, cascade `cds.connect.to`
-1. [test with framework layer](./test/predefined.service.test.js)
-  1. with `express` server and middlewares
-  1. with default `sqlite` database but you can mock values conditionally
+     1. without `express` server setup
+     2. without database
+     3. pure service handlers, cascade `cds.connect.to`
+2. [test with framework layer](./test/predefined.service.test.js)
+     1. with `express` server and middlewares
+     2. with default `sqlite` database but you can mock values conditionally
 
 ## Features
 
