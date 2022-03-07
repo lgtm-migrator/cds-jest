@@ -52,7 +52,7 @@ jobs:
       - run: npm run lint
 
       - name: test & coverage
-        run: npm run coverage
+        run: npm run coverage -- --silent
 
       - name: upload coverage
         uses: codecov/codecov-action@v1

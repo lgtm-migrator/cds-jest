@@ -25,9 +25,9 @@ describe('Sqlite Execution Mock Test Suite', () => {
   it('should support mock query', async () => {
     mocks.sqliteExecution.select.mockResolvedValueOnce([{ Name: 'Theo Sun', Age: 19 }])
     const res = await axios.get("/person/Person")
-    expect(res.data?.value?.[0]).toMatchObject({ Name: 'Theo Sun', Age: 19 })
+    expect(res.data.value[0]).toMatchObject({ Name: 'Theo Sun', Age: 19 })
     const res2 = await axios.get("/person/Person")
-    expect(res2.data?.value).toHaveLength(0)
+    expect(res2.data.value).toHaveLength(0)
   });
 
   it('should support mock insert', async () => {
