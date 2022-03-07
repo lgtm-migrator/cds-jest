@@ -23,7 +23,8 @@ describe('predefined.service Test Suite', () => {
   it('should support read with information', async () => {
 
     // connect to database to perform mock and spy, 
-    // MUST, FIRSTLY, CONNECT TO DB, otherwise the framework will throw error say there is no db connection
+    // MUST, FIRSTLY, CONNECT TO DB, 
+    // otherwise the framework will throw error say that there is no db connection
     const db = await cds.connect.to("db")
     // mock return value
     db.run.mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
