@@ -2,10 +2,13 @@
 
 > jest utils for `cds`
 
+[![npm](https://img.shields.io/npm/v/cds-jest)](https://www.npmjs.com/package/cds-jest)
 [![node-test](https://github.com/Soontao/cds-jest/actions/workflows/nodejs.yml/badge.svg)](https://github.com/Soontao/cds-jest/actions/workflows/nodejs.yml)
 [![codecov](https://codecov.io/gh/Soontao/cds-jest/branch/main/graph/badge.svg?token=WFDumlSg3G)](https://codecov.io/gh/Soontao/cds-jest)
 
 ## Get Started
+
+> setup `jest` test cases for cds project with `cds-jest` 
 
 ### Quick View
 
@@ -79,5 +82,7 @@ describe('predefined.service Test Suite', () => {
   - [x] basic table matcher
   - [ ] axios response matcher (response code, body)
 - [ ] cds test wrapper (with axios type definition)
+
+## [CHANGELOG](./CHANGELOG.md)
 
 ## [LICENSE](./LICENSE)
