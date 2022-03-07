@@ -5,7 +5,7 @@
 [![npm](https://img.shields.io/npm/v/cds-jest)](https://www.npmjs.com/package/cds-jest)
 [![node-test](https://github.com/Soontao/cds-jest/actions/workflows/nodejs.yml/badge.svg)](https://github.com/Soontao/cds-jest/actions/workflows/nodejs.yml)
 [![codecov](https://codecov.io/gh/Soontao/cds-jest/branch/main/graph/badge.svg?token=WFDumlSg3G)](https://codecov.io/gh/Soontao/cds-jest)
-![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/cds-test)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/cds-jest)
 
 ## Get Started
 
