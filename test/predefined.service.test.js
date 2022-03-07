@@ -28,16 +28,20 @@ describe('predefined.service Test Suite', () => {
     const query = INSERT.into("Person").entries([{ Name: "Theo Sun" }])
 
     // conditionally mock, 
-    
+
     // when insert to the `Person` table, return `undefined` value
     when(db.run)
       .calledWith(
         expect.toMatchCQN(INSERT.into("PersonService.Person")),
         expect.anything()
       )
-      .mockResolvedValue(undefined)
+      .mockResolvedValueOnce(undefined)
 
-    await PersonService.run(query) // execute request
+    const result = await PersonService.run(query) // execute request
+
+    expect(result).toMatchObject({
+      Name: "Theo Sun"
+    })
 
     // expect
     expect(db.run)
