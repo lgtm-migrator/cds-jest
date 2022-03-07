@@ -8,6 +8,14 @@ module.exports = class InformationService extends cds.ApplicationService {
       }
       return
     })
+
+    this.on("user", (req) => {
+      return {
+        isAdmin: req.user.is("admin"),
+        emailAddress: req.user.attr.email,
+      }
+    })
+    
     await super.init()
   }
 

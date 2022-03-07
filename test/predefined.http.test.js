@@ -1,13 +1,14 @@
 
 
 describe('HTTP Test Suite', () => {
-
+  
   /**
    * @type {import("../src/types/cds").Test}
    */
   const server = require("@sap/cds").test(".").in(__dirname, "./sample-app")
   const axios = server.axios;
   const spies = require("../src").predefined.server()
+  const { when } = require("jest-when");
 
   afterEach(() => spies.clear())
 
@@ -54,5 +55,30 @@ describe('HTTP Test Suite', () => {
     expect(response.status).toBe(201)
   });
 
+
+  it('should support mock user information', async () => {
+    // if you want to mock the locale, just the the 'sap-language' at header
+    // * req.query['sap-language']
+    // * req.headers['x-sap-request-language']
+    // * req.headers['accept-language']
+
+    spies.user.attr.mockReturnValueOnce({ email: 'theo.sun@dummy.com' })
+    when(spies.user.is).calledWith("admin").mockReturnValueOnce(true)
+
+    const response = await axios.get("/info/user()")
+
+    expect(response.status).toBe(200)
+    expect(response.data).toMatchObject({
+      isAdmin: true,
+      emailAddress: 'theo.sun@dummy.com'
+    })
+
+    const response2 = await axios.get("/info/user()")
+    expect(response2.status).toBe(200)
+    expect(response2.data).toMatchObject({
+      isAdmin: false,
+      emailAddress: null
+    })
+  });
 
 });

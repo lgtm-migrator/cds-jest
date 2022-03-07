@@ -15,4 +15,9 @@ service InformationService {
 
   }
 
+  function user() returns {
+    isAdmin : Boolean;
+    emailAddress : String;
+  }
+
 }

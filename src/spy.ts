@@ -40,20 +40,7 @@ export const spyConnectTo = () => {
 };
 
 export const spyUser = () => {
-  const cds = cwdRequire("@sap/cds");
-  let UserType = cwdRequire("@sap/cds/lib/req/user");
-
-  // TODO: check user use custom authtication handler or not
-  switch (cds.requires?.auth?.kind) {
-    case "mocked-auth":
-      UserType = UserType.Anonymous;
-      break;
-    case "dummy":
-      UserType = UserType.Privileged;
-    default:
-      // do nothing, use plain `User`
-      break;
-  }
+  const UserType = cwdRequire("@sap/cds/lib/req/user").Anonymous;
 
   return {
     attr: jest.spyOn(UserType.prototype, "attr", "get"),
