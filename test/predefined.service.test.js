@@ -5,13 +5,13 @@ describe('predefined.service Test Suite', () => {
 
   const path = require("path")
   const models = [path.join(__dirname, "./sample-app/srv")]
-  const { when, errors, predefined } = require("../src")
+  const { when, errors, predefined } = require("../src") // use 'cds-jest' in your project
   const spies = predefined.service(...models)
   const cds = require("@sap/cds")
 
-  afterEach(() => spies.clear())
+  afterEach(() => spies.clear()) // clear mock/spy objects called information
 
-  it('should support throw error when not mock value for "db.run"', async () => {
+  it('will throw error when not mock value for "db.run"', async () => {
     await cds.connect.to("db")
     const PersonService = await cds.connect.to("PersonService")
     expect(PersonService).not.toBeUndefined()
@@ -23,13 +23,13 @@ describe('predefined.service Test Suite', () => {
 
   it('should support connect and consume data', async () => {
 
-    // connect to database to perform mock, MUST, FIRSTLY, CONNECT TO DB, otherwise the framework will throw error say there is no db connection
     const db = await cds.connect.to("db")
-    // connect to your service
     const PersonService = await cds.connect.to("PersonService")
     const query = INSERT.into("Person").entries([{ Name: "Theo Sun" }])
 
-    // conditionally mock
+    // conditionally mock, 
+    
+    // when insert to the `Person` table, return `undefined` value
     when(db.run)
       .calledWith(
         expect.toMatchCQN(INSERT.into("PersonService.Person")),
@@ -39,6 +39,7 @@ describe('predefined.service Test Suite', () => {
 
     await PersonService.run(query) // execute request
 
+    // expect
     expect(db.run)
       .toBeCalledWith(
         expect.toMatchCQN(INSERT.into("PersonService.Person")),

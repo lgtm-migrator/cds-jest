@@ -51,16 +51,43 @@ describe('predefined.service Test Suite', () => {
 
   });
 
+  it('should support connect and consume data', async () => {
+
+    const db = await cds.connect.to("db")
+    const PersonService = await cds.connect.to("PersonService")
+    const query = INSERT.into("Person").entries([{ Name: "Theo Sun" }])
+
+    // conditionally mock, 
+    
+    // when insert to the `Person` table, return `undefined` value
+    when(db.run)
+      .calledWith(
+        expect.toMatchCQN(INSERT.into("PersonService.Person")),
+        expect.anything()
+      )
+      .mockResolvedValue(undefined)
+
+    await PersonService.run(query) // execute request
+
+    // expect
+    expect(db.run)
+      .toBeCalledWith(
+        expect.toMatchCQN(INSERT.into("PersonService.Person")),
+        expect.anything()
+      )
+
+  });
+
 });
 ```
 
 ### Samples
 
-1. [test with service layer](./test/predefined.http.test.js)
+1. [test with service layer](./test/predefined.service.test.js)
      1. without `express` server setup
      2. without database
      3. pure service handlers, cascade `cds.connect.to`
-2. [test with framework layer](./test/predefined.service.test.js)
+2. [test with framework layer](./test/predefined.http.test.js)
      1. with `express` server and middlewares
      2. with default `sqlite` database but you can mock values conditionally
 
