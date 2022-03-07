@@ -9,6 +9,8 @@ describe('HTTP Test Suite', () => {
   const axios = server.axios;
   const spies = require("../src").predefined.server()
 
+  afterEach(() => spies.clear())
+
   it('should support mock http GET', async () => {
     const response = await axios.request({
       method: "GET",
@@ -19,7 +21,8 @@ describe('HTTP Test Suite', () => {
   });
 
   it('should support mock http GET with mock db result', async () => {
-    spies.sqliteExecution.select.mockResolvedValue([{ Name: 'Theo Sun' }])
+    // TODO: document that only use 'Once' functions
+    spies.sqliteExecution.select.mockResolvedValueOnce([{ Name: 'Theo Sun' }])
     const response = await axios.request({
       method: "GET",
       url: "/person/Person",
@@ -28,7 +31,7 @@ describe('HTTP Test Suite', () => {
     expect(response.data.value).toHaveLength(1)
   });
 
-  it.skip('should support mock http GET with mock db result, but not match entity', async () => {
+  it('should support mock http GET with mock db result, but not match entity', async () => {
     // TODO: fix restore not work
     const response = await axios.request({
       method: "GET",

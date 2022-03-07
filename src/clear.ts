@@ -1,6 +1,6 @@
 import type { SpiedObjects } from "./types";
 
-export const createMockFunction = (spiedObject: SpiedObjects, functionName: "mockClear" | "mockRestore") => {
+export const createMockFunction = (spiedObject: SpiedObjects, functionName: "mockClear") => {
   return () => {
 
     if (spiedObject.sqliteExecution !== undefined) {

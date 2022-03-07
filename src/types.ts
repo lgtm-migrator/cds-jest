@@ -31,10 +31,6 @@ export interface SpiedObjects {
    * invoke the `mockFunction.mockClear` for all mocks
    */
   clear: Function;
-  /**
-   * invoke the `mockFunction.mockRestore` for all mocks
-   */
-  restore: Function;
 }
 
 

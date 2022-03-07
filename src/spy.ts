@@ -10,13 +10,12 @@ import { cwdRequire, spyAll } from "./utils";
  * @param config 
  * @returns the mocked objects
  */
-export const spy = <T extends Array<Feature>>(...features: T): Pick<SpiedObjects, T[number] | "clear" | "restore"> => {
+export const spy = <T extends Array<Feature>>(...features: T): Pick<SpiedObjects, T[number] | "clear"> => {
   const spiedObjects: any = {
     clear: () => { }
   };
 
   spiedObjects.clear = createMockFunction(spiedObjects, "mockClear");
-  spiedObjects.restore = createMockFunction(spiedObjects, "mockRestore");
 
   if (features.includes("sqliteExecution")) {
     spiedObjects.sqliteExecution = spySqliteExecution();
