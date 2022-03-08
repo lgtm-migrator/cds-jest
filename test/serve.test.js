@@ -8,7 +8,9 @@ describe('dummy.serve Test Suite', () => {
   const path = require("path")
   const model = path.join(__dirname, "./sample-app/srv")
 
-  beforeAll(() => serve(model))
+  beforeAll(() => serve(model)) // execute dummy `cds.serve` and connect application services
+
+  afterEach(() => jest.clearAllMocks()) // execute the `called` information which will be used for assert
 
   it('should support connect to simple service', async () => {
     const ps = await cds.connect.to("PersonService")
