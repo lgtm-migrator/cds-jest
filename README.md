@@ -16,7 +16,7 @@
 ```js
 describe('dummy.serve Test Suite', () => {
 
-  const { serve, errors, when, utils } = require("../src");
+  const { serve, errors, when, utils } = require("cds-jest");
   const cds = require("@sap/cds");
   const path = require("path")
   const model = path.join(__dirname, "./sample-app/srv")
