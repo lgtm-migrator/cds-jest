@@ -3,6 +3,19 @@ import { dummy } from "./dummy";
 import { DummyDatabase, SpiedObjects } from "./types";
 
 /**
+ * assert giving function is a mock function, if not, will throw error
+ * 
+ * @param f a function
+ * @returns 
+ */
+export const mustJestMock = <T extends (...args: any[]) => any>(f: T): jest.MockedFunction<T> => {
+  if (!jest.isMockFunction(f)) {
+    throw new TypeError("assert: is jest mock function");
+  }
+  return f as any;
+};
+
+/**
  * resolve module by current work-space
  * 
  * @param id 
@@ -48,6 +61,7 @@ export const spyAll = <T extends object>(obj: T, accessType?: "get" | "set") => 
  * cds mock/spy utils
  */
 export const utils = {
+  mustJestMock,
   connect: {
     /**
      * deep mock `cds.connect.to`

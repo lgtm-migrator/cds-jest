@@ -8,7 +8,7 @@ import { cwdRequire, utils } from "./utils";
  */
 export const predefined = {
   /**
-   * full service layer spy
+   * the hack way to spy full service layer, please try the `dummy.serve` firstly
    * 
    * @param models model pathes 
    * @returns 
@@ -36,4 +36,5 @@ export const predefined = {
     const spies = spy("sqliteExecution", "user");
     return spies;
   }
+
 };
