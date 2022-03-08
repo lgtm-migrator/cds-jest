@@ -7,6 +7,11 @@
 [![codecov](https://codecov.io/gh/Soontao/cds-jest/branch/main/graph/badge.svg?token=WFDumlSg3G)](https://codecov.io/gh/Soontao/cds-jest)
 ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/cds-jest)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Soontao_cds-jest&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Soontao_cds-jest)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Soontao_cds-jest&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Soontao_cds-jest)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Soontao_cds-jest&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Soontao_cds-jest)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Soontao_cds-jest&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Soontao_cds-jest)
+
 ## Get Started
 
 > setup `jest` test cases for cds project with `cds-jest` 
@@ -84,7 +89,7 @@ describe('dummy.serve Test Suite', () => {
 
 1. [test with service layer](./test/serve.test.js)
      1. without `express` server setup
-     2. with a dummy mock database, you must provide each database execution
+     2. with a dummy mock database, you should provide the mock value for each database execution
      3. automatically connect to all application services
 2. [test with framework layer](./test/predefined.http.test.js)
      1. with `express` server and middlewares

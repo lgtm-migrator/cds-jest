@@ -109,4 +109,10 @@ describe('dummy.serve Test Suite', () => {
 
   });
 
+  it('should support trigger the action/function (basic)', async () => {
+    const InformationService = await cds.connect.to("InformationService")
+    const info = await InformationService.user()
+    expect(info).not.toBeUndefined()
+  });
+
 });
