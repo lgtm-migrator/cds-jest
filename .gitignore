@@ -112,3 +112,4 @@ lib
 # dev
 .env
 .whitesource
+*.diff

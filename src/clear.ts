@@ -26,7 +26,6 @@ export const createMockFunction = (spiedObject: SpiedObjects, functionName: "moc
     if (spiedObject.user !== undefined) {
       spiedObject.user?.attr[functionName]();
       spiedObject.user?.is[functionName]();
-      spiedObject.user?.locale[functionName]();
     }
 
     if (spiedObject.connect !== undefined) {

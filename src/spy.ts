@@ -45,7 +45,6 @@ export const spyUser = () => {
   return {
     attr: jest.spyOn(UserType.prototype, "attr", "get"),
     is: jest.spyOn(UserType.prototype, "is"),
-    locale: jest.spyOn(UserType.prototype, "locale", "get"),
   };
 };
 
