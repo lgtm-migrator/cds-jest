@@ -1,6 +1,6 @@
 {
   "name": "cds-jest",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "jest utils for sap cap nodejs runtime",
   "main": "lib/index.js",
   "typings": "lib/index.d.js",
