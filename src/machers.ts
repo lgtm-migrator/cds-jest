@@ -1,45 +1,45 @@
 /* eslint-disable max-len */
 
-function toMatchCQN(receivedCQN: any, expecetedCQN: any) {
+function toMatchCQN(receivedCQN: any, expectedCQN: any) {
 
   const result = {
-    message: () => `expected: ${JSON.stringify(expecetedCQN)}${result.pass ? " " : " not "}to be received: ${JSON.stringify(receivedCQN)}`,
+    message: () => `expected: ${JSON.stringify(expectedCQN)}${result.pass ? " " : " not "}to be received: ${JSON.stringify(receivedCQN)}`,
     pass: false
   };
 
-  if (receivedCQN === expecetedCQN) {
+  if (receivedCQN === expectedCQN) {
     result.pass = true;
     return result;
   }
 
   // any one of value is undefined
-  if (receivedCQN === undefined || expecetedCQN === undefined) {
+  if (receivedCQN === undefined || expectedCQN === undefined) {
     return result;
   }
 
-  if (receivedCQN.SELECT !== undefined && expecetedCQN.SELECT !== undefined) {
-    if (receivedCQN.SELECT?.from?.ref[0] === expecetedCQN.SELECT.from?.ref?.[0]) {
+  if (receivedCQN.SELECT !== undefined && expectedCQN.SELECT !== undefined) {
+    if (receivedCQN.SELECT?.from?.ref[0] === expectedCQN.SELECT.from?.ref?.[0]) {
       result.pass = true;
       return result;
     }
   }
 
-  if (receivedCQN.INSERT !== undefined && expecetedCQN.INSERT !== undefined) {
-    if (receivedCQN.INSERT.into === expecetedCQN.INSERT.into) {
+  if (receivedCQN.INSERT !== undefined && expectedCQN.INSERT !== undefined) {
+    if (receivedCQN.INSERT.into === expectedCQN.INSERT.into) {
       result.pass = true;
       return result;
     }
   }
 
-  if (receivedCQN.UPDATE !== undefined && expecetedCQN.UPDATE !== undefined) {
-    if (receivedCQN.UPDATE.entity === expecetedCQN.UPDATE.entity) {
+  if (receivedCQN.UPDATE !== undefined && expectedCQN.UPDATE !== undefined) {
+    if (receivedCQN.UPDATE.entity === expectedCQN.UPDATE.entity) {
       result.pass = true;
       return result;
     }
   }
 
-  if (receivedCQN.DELETE !== undefined && expecetedCQN.DELETE !== undefined) {
-    if (receivedCQN.DELETE.from === expecetedCQN.DELETE.from) {
+  if (receivedCQN.DELETE !== undefined && expectedCQN.DELETE !== undefined) {
+    if (receivedCQN.DELETE.from === expectedCQN.DELETE.from) {
       result.pass = true;
       return result;
     }
@@ -59,10 +59,9 @@ interface CustomMatchers<R = unknown> {
    * 
    * * table/entity name
    * 
-   * @param receivedCQN 
-   * @param expecetedCQN 
+   * @param expectedCQN 
    */
-  toMatchCQN(expecetedCQN: any): R;
+  toMatchCQN(expectedCQN: any): R;
 }
 
 declare global {
