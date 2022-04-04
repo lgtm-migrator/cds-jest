@@ -72,14 +72,10 @@ export async function Service<T = any>(service: string, options: TestOptions = {
 export async function serve(options: TestOptions = {}) {
   const cds = cwdRequire("@sap/cds");
   const mockExpressApp = { use() { } }; // do nothing app
-  const localOptions: any = Object.assign({
-    port: "0",
-    service: "all",
-    in_memory: true,
-    "in-memory?": true,
-  }, options);
-
-  localOptions.from = cds.models = await cds.load("*", localOptions);
+  const localOptions: any = {
+    ...options,
+    from: cds.models = await cds.load("*", options)
+  };
 
   const cdsServe = cwdRequire("@sap/cds/lib/serve");
   await cdsServe("all", options).in(mockExpressApp);
