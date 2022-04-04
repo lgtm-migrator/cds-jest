@@ -13,7 +13,7 @@ export interface SpiedObjects {
   /**
    * hana low level execute mock
    */
-  hanaExection: jest.MockedObject<cds.db.executes>;
+  hanaExecution: jest.MockedObject<cds.db.executes>;
   /**
    * user which interacted in cds runtime
    */

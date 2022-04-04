@@ -20,8 +20,8 @@ export const spy = <T extends Array<Feature>>(...features: T): Pick<SpiedObjects
   if (features.includes("sqliteExecution")) {
     spiedObjects.sqliteExecution = spySqliteExecution();
   }
-  if (features.includes("hanaExection")) {
-    spiedObjects.hanaExection = spyHanaExecution();
+  if (features.includes("hanaExecution")) {
+    spiedObjects.hanaExecution = spyHanaExecution();
   }
   if (features.includes("connect")) {
     spiedObjects.connect = {};

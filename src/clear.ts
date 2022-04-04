@@ -13,14 +13,14 @@ export const createMockFunction = (spiedObject: SpiedObjects, functionName: "moc
       spiedObject.sqliteExecution?.stream?.[functionName]();
     }
 
-    if (spiedObject.hanaExection !== undefined) {
-      spiedObject.hanaExection?.cqn?.[functionName]();
-      spiedObject.hanaExection?.insert?.[functionName]();
-      spiedObject.hanaExection?.delete?.[functionName]();
-      spiedObject.hanaExection?.update?.[functionName]();
-      spiedObject.hanaExection?.select?.[functionName]();
-      spiedObject.hanaExection?.sql?.[functionName]();
-      spiedObject.hanaExection?.stream?.[functionName]();
+    if (spiedObject.hanaExecution !== undefined) {
+      spiedObject.hanaExecution?.cqn?.[functionName]();
+      spiedObject.hanaExecution?.insert?.[functionName]();
+      spiedObject.hanaExecution?.delete?.[functionName]();
+      spiedObject.hanaExecution?.update?.[functionName]();
+      spiedObject.hanaExecution?.select?.[functionName]();
+      spiedObject.hanaExecution?.sql?.[functionName]();
+      spiedObject.hanaExecution?.stream?.[functionName]();
     }
 
     if (spiedObject.user !== undefined) {
