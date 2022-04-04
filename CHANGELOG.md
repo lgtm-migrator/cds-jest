@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/Soontao/cds-jest/compare/v0.0.5...v0.0.6) (2022-04-04)
+
+
+### Features
+
+* out-of-box dummy service impl ([7193563](https://github.com/Soontao/cds-jest/commit/7193563b5e5fcac88359c6bc49962b32fda34963))
+* update options ([81fc121](https://github.com/Soontao/cds-jest/commit/81fc121f1c4256b3b1278e6a05a5e3a6ab2d055b))
+
 ### [0.0.5](https://github.com/Soontao/cds-jest/compare/v0.0.4...v0.0.5) (2022-03-30)
 
 ### [0.0.4](https://github.com/Soontao/cds-jest/compare/v0.0.3...v0.0.4) (2022-03-08)
