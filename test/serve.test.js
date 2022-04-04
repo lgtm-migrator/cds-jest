@@ -15,6 +15,9 @@ describe('dummy.serve Test Suite', () => {
     const ps = await cds.connect.to("PersonService")
     expect(ps).toBeInstanceOf(cds.Service)
     expect(ps).not.toBeUndefined()
+    
+    expect(jest.isMockFunction(ps.run)).toBeTruthy() // is spied function
+
     const query = INSERT.into("Person").entries([{ Name: "Theo Sun" }])
     await expect(() => ps.run(query)).rejects.toThrowError(errors.NotImplementError)
   });

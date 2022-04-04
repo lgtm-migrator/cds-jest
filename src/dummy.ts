@@ -38,7 +38,7 @@ export async function Database(options: TestOptions = {}): Promise<jest.MockedOb
  * 
  * @param service 
  * @param options test options 
- * @deprecated
+ * @deprecated try to use `cds-jest.dummy.DummyService` or `cds-jest.serve`
  * @returns 
  */
 export async function Service<T = any>(service: string, options: TestOptions = {}): Promise<T> {
@@ -65,12 +65,33 @@ export async function Service<T = any>(service: string, options: TestOptions = {
 }
 
 /**
+ * create an empty `cds.Service`, and spy all functions
+ * 
+ * @param name 
+ * @param options 
+ * @returns 
+ */
+export async function DummyService(name?: string, options?: any): Promise<any> {
+  const cds = cwdRequire("@sap/cds");
+  class DummyServiceImpl extends cds.Service {
+    constructor(...args: any[]) {
+      super(...args);
+    }
+  }
+  const model = await cds.load("*", options);
+  const localOptions: any = { ...options, model };
+  const inst = new DummyServiceImpl(name, model, localOptions);
+  spyAll(inst);
+  return inst;
+}
+
+/**
  * execute dummy `cds.serve`, but without express http server.
  * 
  * it will automatically connect to all application services
  * 
  * with 
- * * dummy database
+ * * dummy database service (developer must mock all db executions)
  * 
  * spy
  * * application services
@@ -79,19 +100,18 @@ export async function Service<T = any>(service: string, options: TestOptions = {
 export async function serve(options: TestOptions = {}) {
   const cds = cwdRequire("@sap/cds");
   const mockExpressApp = { use() { } }; // do nothing app
-  const localOptions: any = {
-    ...options,
-    from: cds.models = await cds.load("*", options)
-  };
+  cds.models = await cds.load("*", options);
+  const localOptions: any = { ...options, from: cds.models };
 
   // connect to db firstly
   cds.db = cds.services["db"] = await dummy.Database(localOptions);
 
-  const cdsServe = cwdRequire("@sap/cds/lib/serve");
-  await cdsServe("all", options).in(mockExpressApp);
+  // using built-in cds serve
+  await cds.serve("all", options).in(mockExpressApp);
 
+  // spy all functions of application services
   for (const service of cds.services) {
-    if(service instanceof cds.ApplicationService) {
+    if (service instanceof cds.ApplicationService) {
       spyAll(service);
     }
   }
@@ -103,5 +123,5 @@ export async function serve(options: TestOptions = {}) {
  * dummy objects construction
  */
 export const dummy = {
-  Database, Service, serve
+  DummyService, Database, Service, serve
 };
