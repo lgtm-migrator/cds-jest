@@ -1,12 +1,11 @@
+const { getTestOptions } = require("./utils");
 
 
 
 describe('predefined.service Test Suite', () => {
 
-  const path = require("path")
-  const models = [path.join(__dirname, "./sample-app/srv")]
   const { when, errors, predefined } = require("../src") // use 'cds-jest' in your project
-  const spies = predefined.service(...models)
+  const spies = predefined.service(getTestOptions())
   const cds = require("@sap/cds")
 
   afterEach(() => spies.clear()) // clear mock/spy objects called information

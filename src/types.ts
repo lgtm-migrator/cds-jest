@@ -48,3 +48,11 @@ export type Feature = Exclude<keyof SpiedObjects, "clear" | "restore">;
 
 
 export type Keys<T> = Array<T[keyof T] extends true ? keyof T : undefined>
+
+
+export interface TestOptions {
+  /**
+   * the project root folder
+   */
+  root?: string;
+}

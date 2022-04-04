@@ -1,6 +1,6 @@
 import { when } from "jest-when";
 import { dummy } from "./dummy";
-import { DummyDatabase, SpiedObjects } from "./types";
+import { DummyDatabase, TestOptions, SpiedObjects } from "./types";
 
 /**
  * assert giving function is a mock function, if not, will throw error
@@ -69,13 +69,13 @@ export const utils = {
      * @param spies 
      * @param models 
      */
-    deep(spies: Partial<SpiedObjects>, ...models: Array<string>) {
+    deep(spies: Partial<SpiedObjects>, options: TestOptions = {}) {
 
       if (spies?.connect?.to === undefined) {
         throw new Error("must spy('connect') firstly");
       }
 
-      spies?.connect?.to?.mockImplementation((service) => dummy.Service(service, ...models));
+      spies?.connect?.to?.mockImplementation((service) => dummy.Service(service, options));
 
     },
   },
@@ -88,9 +88,9 @@ export const utils = {
      * @param models 
      * @returns 
      */
-    async dummy(...models: Array<string>): Promise<jest.MockedObject<DummyDatabase>> {
+    async dummy(options: TestOptions = {}): Promise<jest.MockedObject<DummyDatabase>> {
       const cds = cwdRequire("@sap/cds");
-      const instance = await dummy.Database(...models);
+      const instance = await dummy.Database(options);
       cds.db = instance;
       return instance;
     },

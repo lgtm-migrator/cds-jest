@@ -24,9 +24,8 @@ describe('dummy.serve Test Suite', () => {
   const { serve, errors, when, utils } = require("cds-jest");
   const cds = require("@sap/cds");
   const path = require("path")
-  const model = path.join(__dirname, "./sample-app/srv")
 
-  beforeAll(() => serve(model)) // execute dummy `cds.serve` and connect application services
+  beforeAll(() => serve( { root: path.join(__dirname, '..') } )) // execute dummy `cds.serve` and connect application services
 
   afterEach(() => jest.clearAllMocks()) // execute the `called` information which will be used for assert
 

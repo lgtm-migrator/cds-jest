@@ -1,14 +1,12 @@
+const { getTestOptions } = require("./utils");
 
 
 describe('Service Factory Test Suite', () => {
 
-  const path = require("path")
-  const models = [path.join(__dirname, "./sample-app/srv")]
-
   it('should support connect to service with Service Factory (without full framework)', async () => {
     const { dummy } = require("../src")
 
-    const srv = await dummy.Service("InformationService", ...models)
+    const srv = await dummy.Service("InformationService", getTestOptions())
 
     expect(() => srv.run(INSERT.into("Information").entries([{ Label: "1", Value: "10" }])))
       .rejects

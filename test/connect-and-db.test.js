@@ -1,3 +1,4 @@
+const { getTestOptions } = require("./utils");
 
 
 
@@ -5,18 +6,18 @@ describe('connect.to and db Test Suite', () => {
 
   const { utils, spy, when, errors } = require("../src")
   const cds = require("@sap/cds")
-  const path = require("path")
-  const models = [path.join(__dirname, "./sample-app/srv")]
+  const options = getTestOptions()
   const spies = spy("connect")
+
   /**
    * @type {jest.MockedObject<import("../src/types").DummyDatabase>}
    */
   let dummyDatabaseService
 
   beforeAll(async () => {
-    utils.connect.deep(spies, ...models)
+    utils.connect.deep(spies, options)
     // must assign to cds.db as a global referenec to execute CQN
-    dummyDatabaseService = await utils.db.dummy(models)
+    dummyDatabaseService = await utils.db.dummy(options)
   })
 
   afterEach(() => {

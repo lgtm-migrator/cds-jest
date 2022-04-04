@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
 import { DB_DEFAULT_REJECT_METHODS, DB_DEFAULT_RESOLVE_METHODS } from "./constants";
 import { NotImplementError } from "./errors";
-import { DummyDatabase } from "./types";
+import { DummyDatabase, TestOptions } from "./types";
 import { cwdRequire, spyAll } from "./utils";
 
-export async function Database(...models: Array<string>): Promise<jest.MockedObject<DummyDatabase>> {
+export async function Database(options: TestOptions = {}): Promise<jest.MockedObject<DummyDatabase>> {
   const cds = cwdRequire("@sap/cds");
   const Service = cwdRequire("@sap/cds/libx/_runtime/sqlite/Service");
-  const instance = new Service("db", await cds.load(models));
+  const instance = new Service("db", await cds.load("*", Object.assign({}, cds.options, options)));
   instance.init && await instance.init();
   spyAll(instance);
 
@@ -34,10 +34,10 @@ export async function Database(...models: Array<string>): Promise<jest.MockedObj
  * @deprecated
  * @returns 
  */
-export async function Service<T = any>(service: string, ...models: Array<string>): Promise<T> {
+export async function Service<T = any>(service: string, options: TestOptions = {}): Promise<T> {
   const cds = cwdRequire("@sap/cds");
   const ServiceFactory = cwdRequire("@sap/cds/lib/serve/factory");
-  const csn = await cds.load(models);
+  const csn = await cds.load("*", Object.assign({}, cds.options, options));
   const _pending = cds.services._pending ?? {};
   let _done = (x: any) => x;
   if (service in cds.services) return cds.services[service];
@@ -69,23 +69,23 @@ export async function Service<T = any>(service: string, ...models: Array<string>
  * * application services
  * * database service
  */
-export async function serve(...models: Array<string>) {
+export async function serve(options: TestOptions = {}) {
   const cds = cwdRequire("@sap/cds");
   const mockExpressApp = { use() { } }; // do nothing app
-  const options = {
+  const localOptions: any = Object.assign({
     port: "0",
     service: "all",
-    from: cds.models = await cds.load(models),
-    mocked: undefined,
     in_memory: true,
     "in-memory?": true,
-  };
+  }, options);
+
+  localOptions.from = cds.models = await cds.load("*", localOptions);
 
   const cdsServe = cwdRequire("@sap/cds/lib/serve");
   await cdsServe("all", options).in(mockExpressApp);
 
   // connect to db
-  cds.db = cds.services["db"] = await dummy.Database(...models);
+  cds.db = cds.services["db"] = await dummy.Database(localOptions);
 
   spyAll(cds.services);
 

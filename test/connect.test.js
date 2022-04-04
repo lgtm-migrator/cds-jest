@@ -1,9 +1,9 @@
+const { getTestOptions } = require("./utils");
 
 
 describe("Connect.to Test Suite", () => {
 
-  const path = require("path");
-  const models = [path.join(__dirname, "./sample-app/srv")];
+  const options = getTestOptions()
   const { spy, when, dummy } = require("../src");
   const spies = spy("connect");
   const cds = require("@sap/cds");
@@ -30,7 +30,7 @@ describe("Connect.to Test Suite", () => {
 
   it('should support overwrite defualt impl by "cds.connect.to"', async () => {
     // overwrite default implementation
-    spies.connect.to.mockImplementation((service) => dummy.Service(service, ...models));
+    spies.connect.to.mockImplementation((service) => dummy.Service(service, options));
 
     const aPersonService = await cds.connect.to("PersonService");
     expect(aPersonService).not.toBeUndefined();

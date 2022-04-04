@@ -1,5 +1,6 @@
 import { when } from "jest-when";
 import { dummy, spy } from ".";
+import { TestOptions } from "./types";
 import { cwdRequire, utils } from "./utils";
 
 
@@ -13,12 +14,12 @@ export const predefined = {
    * @param models model pathes 
    * @returns 
    */
-  service(...models: Array<string>) {
+  service(options: TestOptions = {}) {
     const spies = spy("connect", "user");
-    utils.connect.deep(spies, ...models);
+    utils.connect.deep(spies, options);
     const createDb = async () => {
       const cds = cwdRequire("@sap/cds");
-      const db = await dummy.Database(...models);
+      const db = await dummy.Database(options);
       cds.db = db;
       return db;
     };
