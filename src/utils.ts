@@ -43,19 +43,31 @@ export const cwdRequire = (id: string) => {
  * @returns 
  */
 export const spyAll = <T extends object>(obj: T, accessType?: "get" | "set") => {
-  const spiedObject = {};
+  const spiedObject: any = {};
   if (typeof obj === "object") {
-    Object.keys(obj).forEach(key => {
-      // @ts-ignore
-      if (Object.prototype.hasOwnProperty.call(obj, key) && typeof obj[key] === "function") {
-        // @ts-ignore
-        spiedObject[key] = jest.spyOn(obj, key, accessType);
-      }
-    });
+    for (const f of getAllFunctions(obj)) {
+      spiedObject[f] = jest.spyOn(obj, f as any, accessType as any);
+    }
   }
   return spiedObject;
 };
 
+/**
+ * get all functions of object (with prototype)
+ * 
+ * @param object 
+ * @returns 
+ */
+export const getAllFunctions = (object: any): Array<string> => {
+  const props = new Set<string>();
+  let obj = object;
+  do {
+    for (const attr of Object.getOwnPropertyNames(obj)) {
+      props.add(attr);
+    }
+  } while (obj = Object.getPrototypeOf(obj));
+  return Array.from(props).sort().filter((e: any) => typeof object[e] === "function");
+};
 
 /**
  * cds mock/spy utils
@@ -67,7 +79,7 @@ export const utils = {
      * deep mock `cds.connect.to`
      * 
      * @param spies 
-     * @param models 
+     * @param options 
      */
     deep(spies: Partial<SpiedObjects>, options: TestOptions = {}) {
 
@@ -85,7 +97,7 @@ export const utils = {
      * 
      * it will be automatically assigned to the `cds.db` to make it works for handlers
      * 
-     * @param models 
+     * @param options 
      * @returns 
      */
     async dummy(options: TestOptions = {}): Promise<jest.MockedObject<DummyDatabase>> {

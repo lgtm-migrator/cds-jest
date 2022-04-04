@@ -6,9 +6,16 @@ import { cwdRequire, spyAll } from "./utils";
 
 export async function Database(options: TestOptions = {}): Promise<jest.MockedObject<DummyDatabase>> {
   const cds = cwdRequire("@sap/cds");
-  const Service = cwdRequire("@sap/cds/libx/_runtime/sqlite/Service");
-  const instance = new Service("db", await cds.load("*", Object.assign({}, cds.options, options)));
+
+  class DummyDataBaseService extends cwdRequire("@sap/cds/libx/_runtime/sqlite/Service") {
+    constructor(...args: any[]) {
+      super(...args);
+    }
+  };
+
+  const instance: any = new DummyDataBaseService("db", await cds.load("*", Object.assign({}, cds.options, options)));
   instance.init && await instance.init();
+
   spyAll(instance);
 
   for (const method of DB_DEFAULT_REJECT_METHODS) {
@@ -77,13 +84,17 @@ export async function serve(options: TestOptions = {}) {
     from: cds.models = await cds.load("*", options)
   };
 
+  // connect to db firstly
+  cds.db = cds.services["db"] = await dummy.Database(localOptions);
+
   const cdsServe = cwdRequire("@sap/cds/lib/serve");
   await cdsServe("all", options).in(mockExpressApp);
 
-  // connect to db
-  cds.db = cds.services["db"] = await dummy.Database(localOptions);
-
-  spyAll(cds.services);
+  for (const service of cds.services) {
+    if(service instanceof cds.ApplicationService) {
+      spyAll(service);
+    }
+  }
 
 }
 
