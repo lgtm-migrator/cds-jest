@@ -11,7 +11,7 @@ export const predefined = {
   /**
    * the hack way to spy full service layer, please try the `dummy.serve` firstly
    * 
-   * @param models model pathes 
+   * @param options test options
    * @returns 
    */
   service(options: TestOptions = {}) {

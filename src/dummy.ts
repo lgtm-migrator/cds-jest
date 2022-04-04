@@ -27,10 +27,10 @@ export async function Database(options: TestOptions = {}): Promise<jest.MockedOb
 }
 
 /**
- * create dummy/mocked service instance without full cds framework
+ * create a dummy/mocked service instance without full cds framework
  * 
  * @param service 
- * @param models 
+ * @param options test options 
  * @deprecated
  * @returns 
  */
