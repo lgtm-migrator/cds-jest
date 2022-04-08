@@ -3,8 +3,8 @@ const { getTestOptions } = require("./utils");
 
 
 describe('dummy.serve Test Suite', () => {
-
-  const { serve, errors, when, utils } = require("../src");
+  const { when } = require("jest-when")
+  const { serve, errors, utils } = require("../src");
   const cds = require("@sap/cds");
 
   beforeAll(() => serve(getTestOptions())) // execute dummy `cds.serve` and connect application services

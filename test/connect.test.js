@@ -3,8 +3,9 @@ const { getTestOptions } = require("./utils");
 
 describe("Connect.to Test Suite", () => {
 
+  const { when } = require("jest-when")
   const options = getTestOptions()
-  const { spy, when, dummy } = require("../src");
+  const { spy, dummy } = require("../src");
   const spies = spy("connect");
   const cds = require("@sap/cds");
 

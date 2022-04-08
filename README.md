@@ -21,7 +21,8 @@
 ```js
 describe('dummy.serve Test Suite', () => {
 
-  const { serve, errors, when, utils } = require("cds-jest");
+  const { when } = require("jest-when")
+  const { serve, errors, utils } = require("cds-jest");
   const cds = require("@sap/cds");
   const path = require("path")
 

@@ -3,8 +3,8 @@ const { getTestOptions } = require("./utils");
 
 
 describe('connect.to and db Test Suite', () => {
-
-  const { utils, spy, when, errors } = require("../src")
+  const { when } = require("jest-when")
+  const { utils, spy, errors } = require("../src")
   const cds = require("@sap/cds")
   const options = getTestOptions()
   const spies = spy("connect")

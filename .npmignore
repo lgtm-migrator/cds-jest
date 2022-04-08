@@ -13,3 +13,4 @@ jest.config.js
 .prettierrc.json
 src
 .whitesource
+setup_test.sh

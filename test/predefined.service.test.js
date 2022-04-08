@@ -3,8 +3,8 @@ const { getTestOptions } = require("./utils");
 
 
 describe('predefined.service Test Suite', () => {
-
-  const { when, errors, predefined } = require("../src") // use 'cds-jest' in your project
+  const { when } = require("jest-when")
+  const { errors, predefined } = require("../src") // use 'cds-jest' in your project
   const spies = predefined.service(getTestOptions())
   const cds = require("@sap/cds")
 
