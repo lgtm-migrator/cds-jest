@@ -1,2 +1,6 @@
 #!/bin/bash
-npm i --no-save @sap/cds sqlite3 express
+
+if [ ! -d "node_modules/@sap/cds" ]; then
+  echo "Installing no trace dependencies ...";
+  npm i --no-save express @sap/cds sqlite3;
+fi
