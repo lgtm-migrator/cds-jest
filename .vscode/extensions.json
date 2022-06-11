@@ -2,8 +2,6 @@
   "recommendations": [
     "EditorConfig.EditorConfig",
     "dbaeumer.vscode-eslint",
-    "andys8.jest-snippets",
-    "streetsidesoftware.code-spell-checker",
-    "hbenl.vscode-test-explorer"
+    "andys8.jest-snippets"
   ]
 }
