@@ -99,7 +99,8 @@ export function serve(options: TestOptions = {}) {
   const run = db.run = jest.fn();
 
   beforeAll(async () => {
-    db.model = cds.model = await cds.load("*", options);
+    const model = await cds.load("*", options);
+    db.model = cds.model = (cds as any).compile.for.nodejs(model);
     await cds.serve("all", options).in({ use() { } });
     // spy all functions of application services
     for (const service of cds.services) {
