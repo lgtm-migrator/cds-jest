@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/Soontao/cds-jest/compare/v0.0.6...v1.0.0) (2022-06-21)
+
+
+### Features
+
+* remove jest when dependency ([5aa8fe7](https://github.com/Soontao/cds-jest/commit/5aa8fe7b859bd8c62c7dc15602c7b92a427ed1da))
+* update serve ([4816cdf](https://github.com/Soontao/cds-jest/commit/4816cdf8954b1cee2601ff641b09e47b0aedcba8))
+
 ### [0.0.6](https://github.com/Soontao/cds-jest/compare/v0.0.5...v0.0.6) (2022-04-04)
 
 
