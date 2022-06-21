@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { cwdRequireCDS } from "cds-internal-tool";
 import { DB_DEFAULT_REJECT_METHODS, DB_DEFAULT_RESOLVE_METHODS } from "./constants";
 import { NotImplementError } from "./errors";
 import { DummyDatabase, TestOptions } from "./types";
@@ -72,15 +73,10 @@ export async function Service<T = any>(service: string, options: TestOptions = {
  * @returns 
  */
 export async function DummyService(name?: string, options?: any): Promise<any> {
-  const cds = cwdRequire("@sap/cds");
-  class DummyServiceImpl extends cds.Service {
-    constructor(...args: any[]) {
-      super(...args);
-    }
-  }
+  const cds = cwdRequireCDS();
   const model = await cds.load("*", options);
   const localOptions: any = { ...options, model };
-  const inst = new DummyServiceImpl(name, model, localOptions);
+  const inst = new cds.Service(name, model, localOptions);
   spyAll(inst);
   return inst;
 }
@@ -98,13 +94,13 @@ export async function DummyService(name?: string, options?: any): Promise<any> {
  * * database service
  */
 export async function serve(options: TestOptions = {}) {
-  const cds = cwdRequire("@sap/cds");
+  const cds = cwdRequireCDS();
   const mockExpressApp = { use() { } }; // do nothing app
-  cds.models = await cds.load("*", options);
-  const localOptions: any = { ...options, from: cds.models };
+  cds.model = await cds.load("*", options);
+  const localOptions: any = { ...options, from: cds.model };
 
   // connect to db firstly
-  cds.db = cds.services["db"] = await dummy.Database(localOptions);
+  cds.db = cds.services["db"] = await dummy.Database(localOptions) as any;
 
   // using built-in cds serve
   await cds.serve("all", options).in(mockExpressApp);
