@@ -52,7 +52,7 @@ export type Keys<T> = Array<T[keyof T] extends true ? keyof T : undefined>
 
 export interface TestOptions {
   /**
-   * the project root folder
+   * the project root folder, for `cds.resolve`
    */
   root?: string;
 }
