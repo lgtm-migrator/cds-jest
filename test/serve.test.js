@@ -1,53 +1,23 @@
 const { getTestOptions } = require("./utils");
 
 
+describe('serve Test Suite', () => {
 
-describe('dummy.serve Test Suite', () => {
-  const { when } = require("jest-when")
-  const { serve, errors, utils } = require("../src");
+  const { serve } = require("../src");
   const cds = require("@sap/cds");
-
-  beforeAll(() => serve(getTestOptions())) // execute dummy `cds.serve` and connect application services
-
-  afterEach(() => jest.clearAllMocks()) // execute the `called` information which will be used for assert
+  const run = serve(getTestOptions())
 
   it('should support connect to simple service', async () => {
     const ps = await cds.connect.to("PersonService")
     expect(ps).toBeInstanceOf(cds.Service)
     expect(ps).not.toBeUndefined()
-    
     expect(jest.isMockFunction(ps.run)).toBeTruthy() // is spied function
-
-    const query = INSERT.into("Person").entries([{ Name: "Theo Sun" }])
-    await expect(() => ps.run(query)).rejects.toThrowError(errors.NotImplementError)
-  });
-
-
-  it('will throw error when not mock value for "db.run"', async () => {
-    await cds.connect.to("db")
-    const PersonService = await cds.connect.to("PersonService")
-    expect(PersonService).not.toBeUndefined()
-    const query = INSERT.into("Person").entries([{ Name: "Theo Sun" }])
-    await expect(() => PersonService.run(query))
-      .rejects
-      .toThrowError(errors.NotImplementError)
   });
 
   it('should support connect and consume data', async () => {
 
-    const db = await cds.connect.to("db")
     const PersonService = await cds.connect.to("PersonService")
-    const query = INSERT.into("Person").entries([{ Name: "Theo Sun" }])
-
-    // conditionally mock, 
-
-    // when insert to the `Person` table, return `undefined` value
-    when(db.run)
-      .calledWith(
-        expect.toMatchCQN(INSERT.into("PersonService.Person")),
-        expect.anything()
-      )
-      .mockResolvedValueOnce(undefined)
+    const query = INSERT.into("Person").entries([{ ID: "773096ac-63fb-4943-8a45-5b3837a9ed8e", Name: "Theo Sun" }])
 
     const result = await PersonService.run(query) // execute request
 
@@ -56,19 +26,32 @@ describe('dummy.serve Test Suite', () => {
     })
 
     // expect
-    expect(db.run)
-      .toBeCalledWith(
-        expect.toMatchCQN(INSERT.into("PersonService.Person")),
-        expect.anything()
-      )
+    expect(run.mock.lastCall).toMatchInlineSnapshot(`
+Array [
+  INSERT {
+    "INSERT": Object {
+      "entries": Array [
+        Object {
+          "ID": "773096ac-63fb-4943-8a45-5b3837a9ed8e",
+          "Name": "Theo Sun",
+        },
+      ],
+      "into": "PersonService.Person",
+    },
+  },
+  Object {
+    "ID": "773096ac-63fb-4943-8a45-5b3837a9ed8e",
+    "Name": "Theo Sun",
+  },
+]
+`)
 
   });
 
 
   it('should support read with information', async () => {
-    const db = await cds.connect.to("db")
-    utils.mustJestMock(db.run).mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
-    utils.mustJestMock(db.run).mockResolvedValueOnce([{ Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }])
+    run.mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
+    run.mockResolvedValueOnce([{ Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }])
 
     const PersonService = await cds.connect.to("PersonService")
     const result = await PersonService.run(SELECT.one.from("Person").where({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f" }))
@@ -84,13 +67,9 @@ describe('dummy.serve Test Suite', () => {
   });
 
   it('should support read with information', async () => {
-
-    // connect to database to perform mock and spy, 
-    // MUST, FIRSTLY, CONNECT TO DB, otherwise the framework will throw error say there is no db connection
-    const db = await cds.connect.to("db")
     // mock return value
-    utils.mustJestMock(db.run).mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
-    utils.mustJestMock(db.run).mockResolvedValueOnce([{ Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }])
+    run.mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
+    run.mockResolvedValueOnce([{ Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }])
 
     // connect to business service
     const PersonService = await cds.connect.to("PersonService")

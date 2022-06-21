@@ -93,24 +93,24 @@ export async function DummyService(name?: string, options?: any): Promise<any> {
  * * application services
  * * database service
  */
-export async function serve(options: TestOptions = {}) {
+export function serve(options: TestOptions = {}) {
   const cds = cwdRequireCDS();
-  const mockExpressApp = { use() { } }; // do nothing app
-  cds.model = await cds.load("*", options);
-  const localOptions: any = { ...options, from: cds.model };
+  const db = cds.db = cds.services["db"] = new cds.Service("db");
+  const run = db.run = jest.fn();
 
-  // connect to db firstly
-  cds.db = cds.services["db"] = await dummy.Database(localOptions) as any;
-
-  // using built-in cds serve
-  await cds.serve("all", options).in(mockExpressApp);
-
-  // spy all functions of application services
-  for (const service of cds.services) {
-    if (service instanceof cds.ApplicationService) {
-      spyAll(service);
+  beforeAll(async () => {
+    db.model = cds.model = await cds.load("*", options);
+    await cds.serve("all", options).in({ use() { } });
+    // spy all functions of application services
+    for (const service of cds.services) {
+      if (service instanceof cds.ApplicationService) {
+        spyAll(service);
+      }
     }
-  }
+  });
+
+
+  return run;
 
 }
 

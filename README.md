@@ -19,70 +19,55 @@
 ### Quick View
 
 ```js
-describe('dummy.serve Test Suite', () => {
+describe('serve Test Suite', () => {
 
-  const { when } = require("jest-when")
-  const { serve, errors, utils } = require("cds-jest");
+  const { serve } = require("cds-jest");
   const cds = require("@sap/cds");
-  const path = require("path")
+  const run = serve()
 
-  beforeAll(() => serve( { root: path.join(__dirname, '..') } )) // execute dummy `cds.serve` and connect application services
-
-  afterEach(() => jest.clearAllMocks()) // execute the `called` information which will be used for assert
-
-  it('should support read with information', async () => {
-
-    const db = await cds.connect.to("db")
-    // mock return value
-    utils.mustJestMock(db.run).mockResolvedValueOnce({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f", Name: "TheoSun" })
-    utils.mustJestMock(db.run).mockResolvedValueOnce([{ Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }])
-
-    // connect to business service
-    const PersonService = await cds.connect.to("PersonService")
-    // execute CQN and trigger the events
-    const result = await PersonService
-      .run(SELECT.one.from("Person").where({ ID: "6fb19609-dfed-4be7-a935-66ea4338c13f" }))
-
-    // expect the result
-    expect(result)
-      .toMatchObject({
-        ID: "6fb19609-dfed-4be7-a935-66ea4338c13f",
-        Name: "TheoSun",
-        Informations: [
-          { Label: "21312", Value: "fjdkaslfjasdklfjasdklf" }
-        ]
-      })
-
+  it('should support connect to simple service', async () => {
+    const ps = await cds.connect.to("PersonService")
+    expect(ps).toBeInstanceOf(cds.Service)
+    expect(ps).not.toBeUndefined()
+    expect(jest.isMockFunction(ps.run)).toBeTruthy() // is spied function
   });
 
   it('should support connect and consume data', async () => {
 
-    const db = await cds.connect.to("db")
     const PersonService = await cds.connect.to("PersonService")
-    const query = INSERT.into("Person").entries([{ Name: "Theo Sun" }])
+    const query = INSERT.into("Person").entries([{ ID: "773096ac-63fb-4943-8a45-5b3837a9ed8e", Name: "Theo Sun" }])
 
-    // conditionally mock, 
-    
-    // when insert to the `Person` table, return `undefined` value
-    when(db.run)
-      .calledWith(
-        expect.toMatchCQN(INSERT.into("PersonService.Person")),
-        expect.anything()
-      )
-      .mockResolvedValue(undefined)
+    const result = await PersonService.run(query) // execute request
 
-    await PersonService.run(query) // execute request
+    expect(result).toMatchObject({
+      Name: "Theo Sun"
+    })
 
-    // expect
-    expect(db.run)
-      .toBeCalledWith(
-        expect.toMatchCQN(INSERT.into("PersonService.Person")),
-        expect.anything()
-      )
+    expect(run.mock.lastCall).toMatchInlineSnapshot(`
+Array [
+  INSERT {
+    "INSERT": Object {
+      "entries": Array [
+        Object {
+          "ID": "773096ac-63fb-4943-8a45-5b3837a9ed8e",
+          "Name": "Theo Sun",
+        },
+      ],
+      "into": "PersonService.Person",
+    },
+  },
+  Object {
+    "ID": "773096ac-63fb-4943-8a45-5b3837a9ed8e",
+    "Name": "Theo Sun",
+  },
+]
+`)
 
   });
 
 });
+
+
 ```
 
 ### Samples
