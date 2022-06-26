@@ -6,7 +6,7 @@ import { DummyDatabase, TestOptions } from "./types";
 import { cwdRequire, spyAll } from "./utils";
 
 export async function Database(options: TestOptions = {}): Promise<jest.MockedObject<DummyDatabase>> {
-  const cds = cwdRequire("@sap/cds");
+  const cds = cwdRequireCDS()
 
   class DummyDataBaseService extends cwdRequire("@sap/cds/libx/_runtime/sqlite/Service") {
     constructor(...args: any[]) {
@@ -82,20 +82,18 @@ export async function DummyService(name?: string, options?: any): Promise<any> {
 }
 
 /**
+ * 
  * execute dummy `cds.serve`, but without express http server.
  * 
  * it will automatically connect to all application services
  * 
- * with 
- * * dummy database service (developer must mock all db executions)
+ * @returns the mocked `cds.db.run` function
  * 
- * spy
- * * application services
- * * database service
  */
 export function serve(options: TestOptions = {}) {
   const cds = cwdRequireCDS();
-  const db = cds.db = cds.services["db"] = new cds.Service("db");
+  const DatabaseService =  cwdRequire("@sap/cds/libx/_runtime/sqlite/Service");
+  const db = cds.db = cds.services["db"] = new DatabaseService("db");
   const run = db.run = jest.fn();
 
   beforeAll(async () => {
