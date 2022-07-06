@@ -1,2 +1,0 @@
-
-export { executes } from "./execute";

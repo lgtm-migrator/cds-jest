@@ -82,19 +82,8 @@ Array [
 
 ## Features
 
-- [x] mock db executions
-  - [ ] db execution shortcut
-- [x] mock db service for `cds.connect.to`
-- [x] hack `cds_serve`, use the native serve logic to test
-- [x] mock user attr & privileges
-- [x] mock `cds.connect.to`
-  - [x] test with odata lifecycle
-  - [x] simple `connect.to`
-  - [x] cascade `connect.to`
-  - [ ] circular `connect.to`
-  - [ ] test with action/function
-  - [x] cds.services alias
-- [ ] spy logger
+- [x] hack `serve`, use the native serve logic to test
+  - [ ] partial `serve`
 - [ ] custom CQN matcher
   - [x] basic table matcher
   - [ ] axios response matcher (response code, body)
