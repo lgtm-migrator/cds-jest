@@ -1,6 +1,6 @@
 import "./machers";
 
-export { dummy, serve } from "./dummy";
+export { serve } from "./serve";
 export { utils } from "./utils";
 
 export * as errors from "./errors";

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { cwdRequireCDS } from "cds-internal-tool";
-import { cwdRequire, spyAll } from "./utils";
+import { cwdRequire, cwdRequireCDS } from "cds-internal-tool";
+import { spyAll } from "./utils";
 /**
  * 
  * execute dummy `cds.serve`, but without express http server.
@@ -32,9 +32,3 @@ export function serve(options: any = {}) {
   return run;
 
 }
-
-
-/**
- * dummy objects construction
- */
-export const dummy = { serve };
