@@ -46,6 +46,6 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "cds-internal-tool": "^1"
+    "cds-internal-tool": "^1.3.0"
   }
 }

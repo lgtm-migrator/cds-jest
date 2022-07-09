@@ -76,9 +76,6 @@ Array [
      1. without `express` server setup
      2. with a dummy mock database, you should provide the mock value for each database execution
      3. automatically connect to all application services
-2. [test with framework layer](./test/predefined.http.test.js)
-     1. with `express` server and middlewares
-     2. with default `sqlite` database but you can mock values conditionally
 
 ## Features
 
