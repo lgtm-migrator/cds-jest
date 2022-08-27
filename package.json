@@ -44,8 +44,11 @@
     "sap",
     "mock"
   ],
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
   "license": "Apache-2.0",
   "dependencies": {
-    "cds-internal-tool": "^1.3.0"
+    "cds-internal-tool": "^1.4.0"
   }
 }
