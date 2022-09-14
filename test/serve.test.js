@@ -27,11 +27,11 @@ describe('serve Test Suite', () => {
 
     // expect
     expect(run.mock.lastCall).toMatchInlineSnapshot(`
-Array [
+[
   INSERT {
-    "INSERT": Object {
-      "entries": Array [
-        Object {
+    "INSERT": {
+      "entries": [
+        {
           "ID": "773096ac-63fb-4943-8a45-5b3837a9ed8e",
           "Name": "Theo Sun",
         },
@@ -39,7 +39,7 @@ Array [
       "into": "PersonService.Person",
     },
   },
-  Object {
+  {
     "ID": "773096ac-63fb-4943-8a45-5b3837a9ed8e",
     "Name": "Theo Sun",
   },
