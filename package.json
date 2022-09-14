@@ -26,7 +26,7 @@
   "devDependencies": {
     "@types/jest": "28.1.8",
     "@types/jest-when": "3.5.2",
-    "@types/node": "16.11.58",
+    "@types/node": "16.11.59",
     "@types/sqlite3": "3.1.8",
     "@typescript-eslint/eslint-plugin": "5.37.0",
     "@typescript-eslint/parser": "5.37.0",
