@@ -24,7 +24,7 @@
     "coverage": "npm test -- --coverage --no-cache"
   },
   "devDependencies": {
-    "@types/jest": "29.0.2",
+    "@types/jest": "29.0.3",
     "@types/jest-when": "3.5.2",
     "@types/node": "16.11.59",
     "@types/sqlite3": "3.1.8",
